@@ -209,4 +209,88 @@ check("Ex10 Pc at matching (full circuit)", V[3] ** 2 / 4, 16)
 best = max((F(16) ** 2 * r / (4 + r) ** 2, r) for r in [F(k, 10) for k in range(1, 400)])
 check("Ex10 argmax Pc by scan", best[1], 4)
 
+print("== Cheat sheet 3A-3C")
+# Worked example of lecture p. 23. Nodes: 1 = A, 2 = top of e1 (its + terminal),
+# 3 = top of e2 (its - terminal, since the + of e2 is on B); B = ground.
+for e1, e2, R1, R2, R3 in [(12, 6, 2, 3, 6), (5, 9, 1, 4, 2), (F(3, 2), 7, 10, 3, 5)]:
+    V, _ = solve(3, resistors=[(2, 1, R1), (1, 3, R2), (1, 0, R3)],
+                 vsources=[(2, 0, e1), (0, 3, e2)])
+    i1, i2, i3 = (V[2] - V[1]) / R1, (V[1] - V[3]) / R2, V[1] / R3
+    tag = f"p.23 example e1={e1} e2={e2} R=({R1},{R2},{R3})"
+    check(tag + ": node law i1 = i2 + i3", i1 - i2 - i3, 0)
+    check(tag + ": left mesh e1 = R1 i1 + R3 i3", R1 * i1 + R3 * i3, e1)
+    check(tag + ": right mesh e2 = R2 i2 - R3 i3", R2 * i2 - R3 * i3, e2)
+    check(tag + ": outer loop e1 + e2 = R1 i1 + R2 i2", R1 * i1 + R2 * i2, e1 + e2)
+    millman = (F(e1) / R1 - F(e2) / R2 + 0) / (F(1) / R1 + F(1) / R2 + F(1) / R3)
+    check(tag + ": Millman V_A with -e2", millman, V[1])
+check("p.23 example: meshes B - N + 1", 3 - 2 + 1, 2)
+# Boxes 17-18: series and parallel combinations, checked on driven networks (1 V source)
+_, I = solve(3, resistors=[(1, 2, 2), (2, 3, 3), (3, 0, 5)], vsources=[(1, 0, 1)])
+check("Box 17 series Req = sum", 1 / I[0], 2 + 3 + 5)
+_, I = solve(1, resistors=[(1, 0, 2), (1, 0, 3), (1, 0, 6)], vsources=[(1, 0, 1)])
+check("Box 18 parallel 1/Req = sum 1/Rk", 1 / I[0], 1 / (F(1, 2) + F(1, 3) + F(1, 6)))
+_, I = solve(1, resistors=[(1, 0, 6), (1, 0, 3)], vsources=[(1, 0, 1)])
+check("Box 18 two in parallel: product over sum", 1 / I[0], F(6 * 3, 6 + 3))
+# Box 19: voltage divider, and the loaded-divider trap
+V, _ = solve(2, resistors=[(1, 2, 2), (2, 0, 1)], vsources=[(1, 0, 9)])
+check("Box 19 u2 = R2/(R1+R2) u", V[2], F(1, 3) * 9)
+check("Box 19 u1/u2 = R1/R2", (V[1] - V[2]) / V[2], 2)
+V, _ = solve(2, resistors=[(1, 2, 2), (2, 0, 1), (2, 0, 1)], vsources=[(1, 0, 9)])
+R2L = F(1 * 1, 1 + 1)
+check("Loaded divider: use R2 || RL", V[2], R2L / (2 + R2L) * 9)
+# current divider: a 6 A current source feeding R1 = 2 and R2 = 4 in parallel
+V, _ = solve(1, resistors=[(1, 0, 2), (1, 0, 4)], isources=[(0, 1, 6)])
+check("Current divider i1 = R2/(R1+R2) i", V[1] / 2, F(4, 6) * 6)
+check("Current divider i2 = R1/(R1+R2) i", V[1] / 4, F(2, 6) * 6)
+# Box 20: Millman on a star of four branches with potentials Vk
+Vk, Rk = [10, -4, 0, 7], [2, 5, 4, 1]
+V, _ = solve(5, resistors=[(1, k + 2, r) for k, r in enumerate(Rk)],
+             vsources=[(k + 2, 0, v) for k, v in enumerate(Vk)])
+VO = sum(F(v, r) for v, r in zip(Vk, Rk)) / sum(F(1, r) for r in Rk)
+check("Box 20 Millman formula vs MNA", VO, V[1])
+check("Box 20 V_O between min and max", int(min(Vk) <= VO <= max(Vk)), 1)
+# 3B worked example (lecture p. 33) with E = 10 V, R1 = 2.0 kOhm, R2 = 8.0 kOhm (kOhm, mA)
+# nodes: 1 = E+, 2 = A; B = ground
+net = [(1, 2, 2), (2, 0, 8)]
+Voc, _ = solve(2, resistors=net, vsources=[(1, 0, 10)])
+_, Isc = solve(2, resistors=net, vsources=[(1, 0, 10), (2, 0, 0)])
+check("3B example E_Th (open circuit)", Voc[2], 8.0)
+check("3B example E_Th = R2 E/(R1+R2)", F(8 * 10, 2 + 8), Voc[2])
+check("3B example I_No (short circuit)", -Isc[1], 5.0)
+check("3B example I_No = E/R1", F(10, 2), -Isc[1])
+check("3B example R_Th = R1 R2/(R1+R2)", F(2 * 8, 2 + 8), 1.6)
+_, I = solve(2, resistors=net, vsources=[(1, 0, 0), (2, 0, 1)])   # E off, 1 V test source on A
+check("3B example R_Th with E switched off (1 V test source)", 1 / I[1], 1.6)
+for Rc in (1, 5):
+    V, _ = solve(2, resistors=net + [(2, 0, Rc)], vsources=[(1, 0, 10)])
+    i = V[2] / Rc
+    check(f"3B example u = E_Th - R_Th i (Rc={Rc})", V[2], 8 - F(8, 5) * i)
+    check(f"3B example Norton gives the same u (Rc={Rc})", 5 * (F(8, 5) * Rc / (F(8, 5) + Rc)), V[2])
+# 3C example: E_Th = 10 V, R_Th = 2.0 Ohm, R_c = 3.0 Ohm
+E, Rt, Rc = 10, 2, 3
+V, _ = solve(2, resistors=[(1, 2, Rt), (2, 0, Rc)], vsources=[(1, 0, E)])
+i_ = V[2] / Rc
+check("3C example i*", i_, 2.0); check("3C example i* formula", F(E, Rt + Rc), i_)
+check("3C example u*", V[2], 6.0); check("3C example u* divider", F(Rc, Rt + Rc) * E, V[2])
+check("3C example Pc", V[2] * i_, 12); check("3C example produced E i*", E * i_, 20)
+check("3C example lost in R_Th", Rt * i_ ** 2, 8); check("3C example eta", V[2] * i_ / (E * i_), 0.6)
+check("3C example balance", E * i_ - Rt * i_ ** 2 - Rc * i_ ** 2, 0)
+check("3C example Pmax", F(E ** 2, 4 * Rt), 12.5)
+# matching: derivative, argmax, efficiency and u* at matching, normalised plot curves
+Pc = lambda r: F(E) ** 2 * r / (Rt + r) ** 2
+for r in (F(1), F(3), F(7, 2)):
+    h = F(1, 10 ** 6)
+    check(f"dPc/dRc formula at Rc={r}", F(E) ** 2 * (Rt - r) / (Rt + r) ** 3,
+          (Pc(r + h) - Pc(r - h)) / (2 * h), rel=1e-6)
+best = max((Pc(r), r) for r in [F(k, 100) for k in range(1, 2000)])
+check("argmax Pc by scan = R_Th", best[1], Rt)
+check("eta at matching", F(Rt, Rt + Rt), 0.5); check("u* at matching", F(Rt, Rt + Rt) * E, F(E, 2))
+for x in (F(1, 2), F(1), F(3), F(8)):
+    r = x * Rt
+    check(f"plot: eta = x/(1+x) at x={x}", F(r, Rt + r), x / (1 + x))
+    check(f"plot: Pc/Pmax = 4x/(1+x)^2 at x={x}", Pc(r) / F(E ** 2, 4 * Rt), 4 * x / (1 + x) ** 2)
+# 3C sketch: source line (0,1.5)-(2.25,0) and load line of slope 0.5 meet at the drawn dot
+u_star = 1.5 / (0.5 + 1.5 / 2.25)
+check("3C sketch u*", u_star, 1.2857, rel=1e-4); check("3C sketch i*", 0.5 * u_star, 0.6429, rel=1e-4)
+
 print("\nFAILURES:", fails)

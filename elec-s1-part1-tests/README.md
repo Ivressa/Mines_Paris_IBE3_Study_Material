@@ -1,8 +1,9 @@
-# Elec-S1 · Part 1 — Practice tests
+# Elec-S1 · Part 1 — Practice tests and cheat sheets
 
 Practice material for **IBE³ Physics for Engineers, Electricity module, Part 1: Foundations
 of DC circuit theory**. There are nine progress tests, one per lecture section (1.A to
-3.C), and one end-of-unit test. Each comes with an answer key and a marking scheme.
+3.C), and one end-of-unit test. Each comes with an answer key and a marking scheme. Two
+cheat sheets summarise the whole of Part 1.
 
 The format copies Test 1 (21 September 2026): a unit conversion, a definition with its equation
 and SI units, tick-box questions, and a short calculation with the data in a frame. Answers go
@@ -19,6 +20,26 @@ in squared frames, and a "Marking" column sits in the margin. No calculator is n
 
 Single tests are in [`pdf/papers/`](pdf/papers) and [`pdf/keys/`](pdf/keys). Each progress
 test is two pages, one sheet printed double-sided.
+
+## Cheat sheets
+
+| File | Sections | Pages |
+|---|---|---|
+| [`cheat-sheets/Elec-S1-Cheat-Sheet-1A-2C.pdf`](cheat-sheets/Elec-S1-Cheat-Sheet-1A-2C.pdf) | 1.A–2.C: voltage, current, circuit vocabulary, power, characteristics, Ohm, Joule, Pouillet | 2 |
+| [`cheat-sheets/Elec-S1-Cheat-Sheet-3A-3C.pdf`](cheat-sheets/Elec-S1-Cheat-Sheet-3A-3C.pdf) | 3.A–3.C: Kirchhoff's laws, series and parallel, voltage and current dividers, Millman, Thévenin and Norton, operating point, power matching | 2 |
+
+The 3A–3C sheet uses the same layout as the 1A–2C one and fills in the lecture's blank
+Boxes 16–24 (notes pages 22–38). It covers:
+
+- both worked examples from the notes, the node/mesh equations of p. 23 and the Thévenin
+  model of p. 33;
+- a "which tool?" guide and a box of exam traps;
+- three handout typos: eqs. (15)–(16) on p. 27 give u₂, not u₁; the denominator of
+  eq. (17) on p. 28 should read 1/R₁ + 1/R₂ + … + 1/Rₙ; P_Th in eq. (24) on p. 37 means
+  E_Th·i⋆.
+
+Its numerical examples use different values from the progress tests, so it gives no
+answers away. The 1A–2C sheet was supplied as a PDF and has no LaTeX source here.
 
 ## The tests
 
@@ -60,18 +81,20 @@ The answer keys point these out in red "Examiner's tip" boxes wherever they come
 
 ## Rebuilding the PDFs
 
-You need TeX Live (`pdflatex`, with `circuitikz`, `tcolorbox`, `siunitx`) and `poppler-utils`
-(for `pdfunite`).
+You need TeX Live (`pdflatex`, with `circuitikz`, `tcolorbox`, `siunitx`, `pgfplots`) and
+`poppler-utils` (for `pdfunite`).
 
 ```bash
-./build.sh               # every test, both versions, and the four booklets
-./build.sh progress-2A   # a single test (paper + key)
-python3 tools/check_answers.py   # recomputes every numerical answer (exact nodal analysis)
+./build.sh                     # every test, both versions, the four booklets, the cheat sheet
+./build.sh progress-2A         # a single test (paper + key)
+./build.sh cheat-sheet-3A-3C   # the 3A-3C cheat sheet only
+python3 tools/check_answers.py # recomputes every numerical answer (exact nodal analysis)
 ```
 
 Each test is a single file in `src/`. The answer key is that same file compiled with
 `\def\KEY{}`, which fills the frames with the model answers (see `src/ibetest.cls`). To write
-a new test, copy a progress test and change the exercises.
+a new test, copy a progress test and change the exercises. The cheat sheet's source is
+`src/cheat-sheet-3A-3C.tex`. The checker also verifies its formulas and examples.
 
 ---
 *Unofficial practice material written from the Elec-S1 Part 1 lecture notes. It is not an

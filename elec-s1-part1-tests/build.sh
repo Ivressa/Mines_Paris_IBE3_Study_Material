@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Builds every practice test twice (blank paper + answer key) and the booklets.
-# Usage: ./build.sh            (all tests)
-#        ./build.sh progress-1A (one test)
+# Builds every practice test twice (blank paper + answer key), the booklets and the
+# 3A-3C cheat sheet.
+# Usage: ./build.sh                    (everything)
+#        ./build.sh progress-1A        (one test)
+#        ./build.sh cheat-sheet-3A-3C  (the cheat sheet only)
 set -euo pipefail
 cd "$(dirname "$0")"
 ROOT=$PWD
@@ -11,7 +13,13 @@ mkdir -p "$BUILD" "$OUT/papers" "$OUT/keys"
 
 TESTS=(progress-1A progress-1B progress-1C progress-2A progress-2B progress-2C
        progress-3A progress-3B progress-3C end-of-unit)
-[ $# -gt 0 ] && TESTS=("$@")
+CHEATS=(cheat-sheet-3A-3C)
+if [ $# -gt 0 ]; then
+  TESTS=(); CHEATS=()
+  for a in "$@"; do
+    case $a in cheat-sheet-*) CHEATS+=("$a") ;; *) TESTS+=("$a") ;; esac
+  done
+fi
 
 compile() { # $1 = jobname, $2 = tex input
   (cd src && for pass in 1 2; do
@@ -28,6 +36,16 @@ for t in "${TESTS[@]}"; do
   compile "$t-key" "\\def\\KEY{}\\input{$t}"
   cp "$BUILD/$t.pdf" "$OUT/papers/$t.pdf"
   cp "$BUILD/$t-key.pdf" "$OUT/keys/$t-key.pdf"
+done
+
+# Cheat sheets (a single version, no answer key). The 1A-2C sheet in cheat-sheets/ was
+# supplied as a PDF and has no source here.
+mkdir -p "$ROOT/cheat-sheets"
+for c in "${CHEATS[@]}"; do
+  [ -f "src/$c.tex" ] || { echo "skip $c (no source)"; continue; }
+  echo "== $c"
+  compile "$c" "\\input{$c}"
+  cp "$BUILD/$c.pdf" "$ROOT/cheat-sheets/Elec-S1-Cheat-Sheet-${c#cheat-sheet-}.pdf"
 done
 
 # Booklets (only when every test exists)
