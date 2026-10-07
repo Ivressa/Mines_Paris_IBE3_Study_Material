@@ -1,0 +1,402 @@
+% Quantum chemistry formula booklet: every formula, constant and rule of the
+% Chemistry S1-1 handout (chapters 1-5), with symbols, units and conditions.
+% Entries marked with a dagger (\fe*) are not printed in the handout.
+\documentclass[10pt,a4paper]{article}
+\usepackage{formulabook}
+\usepackage[version=4]{mhchem}
+\colorlet{theme}{teal}
+\renewcommand{\booktitle}{Quantum chemistry \textperiodcentered{} Formula booklet}
+\newcommand{\nuc}[3]{{}^{#1}_{#2}\mathrm{#3}}
+\newcommand{\Zeff}{Z_{\mathrm{eff}}}
+\newcommand{\EI}{E_{\mathrm I}}
+
+\begin{document}
+\thispagestyle{first}
+
+\begin{tcolorbox}[enhanced, colback=theme, colframe=theme, coltext=white, arc=2mm,
+    boxrule=0pt, left=10pt, right=10pt, top=9pt, bottom=9pt]
+  {\LARGE\bfseries Quantum chemistry}\\[3pt]
+  {\Large Formula booklet}\\[6pt]
+  {\small Chemistry S1-1 \textperiodcentered{} From atomic entities to physico-chemical
+  systems \textperiodcentered{} handout chapters 1--5}
+\end{tcolorbox}
+
+\begin{keybox}[title={How to read this booklet}]
+\small
+Each row gives a quantity and where it is in the handout (\S\ section or table), the
+formula, then the symbols with their units and when the formula applies.
+\begin{itemize}
+  \item \dagnote\ marks a result that is \textbf{not printed in the handout}: from the
+    study guide or the worksheets, or a standard result for going further. Use it when
+    it helps, but quote the handout's form when there is one.
+  \item Numbers use the handout's values: $h = 6.62\times10^{-34}$~J\,s,
+    $e = 1.6\times10^{-19}$~C, $c = 3.00\times10^8$~m\,s$^{-1}$,
+    $R_H = 3.29\times10^{15}$~Hz.
+\end{itemize}
+\end{keybox}
+
+\begin{minipage}[t]{0.47\textwidth}
+\fbsub{Contents}
+\fbcontents
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\textwidth}
+\fbsub{Constants}
+{\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}l@{\hspace{6pt}}l@{}}
+Speed of light & $c = 3.00\times10^{8}$~m\,s$^{-1}$\\
+Planck constant & $h = 6.62\times10^{-34}$~J\,s\\
+ & $\hbar = h/2\pi = 1.05\times10^{-34}$~J\,s\dagnote\\
+Elementary charge & $e = 1.6\times10^{-19}$~C\\
+Electron mass & $m_e = 9.1094\times10^{-31}$~kg\\
+Proton mass & $m_p = 1.6727\times10^{-27}$~kg\\
+Neutron mass & $m_n = 1.6749\times10^{-27}$~kg\\
+Atomic mass unit & 1~amu $= 1.6605\times10^{-27}$~kg\\
+Avogadro constant & $N_A = 6.022\times10^{23}$~mol$^{-1}$\\
+Rydberg constant & $R_H = 3.29\times10^{15}$~Hz\\
+ & $R_H/c = 1.097\times10^{7}$~m$^{-1}$\dagnote\\
+Bohr radius & $a_0 = 52.9$~pm\\
+Coulomb constant & $k = 1/(4\pi\varepsilon_0) = 8.99\times10^{9}$~N\,m$^2$\,C$^{-2}$\\
+Vacuum permittivity & $\varepsilon_0 = 8.85\times10^{-12}$~F\,m$^{-1}$\dagnote\\
+Ground state of H & $E_1 = -13.6$~eV\\
+\end{tabular}}
+
+\fbsub{Conversions}
+{\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}l@{}}
+$1~\mathrm{eV} = 1.6\times10^{-19}$~J;\quad $1~\mathrm{MeV} = 1.6\times10^{-13}$~J\\
+$1~\mathrm{eV/atom} = 96.5$~kJ\,mol$^{-1}$\\
+$E\,(\mathrm{eV}) \approx 1240/\lambda\,(\mathrm{nm})$\quad ($hc = 1240$~eV\,nm)\\
+$1~\mathrm{pm} = 10^{-12}$~m;\quad $1~\text{\AA} = 100~\mathrm{pm} = 10^{-10}$~m\\
+$1~\mathrm{fm} = 10^{-15}$~m $= 10^{-3}$~pm;\quad $1~\mathrm{nm} = 10^{-9}$~m\\
+$1~\mathrm{D}$ (debye) $= 3.336\times10^{-30}$~C\,m\\
+$1~\mathrm{amu}\times c^2 = 931.5$~MeV\dagnote\\
+\end{tabular}}
+\end{minipage}
+
+% =====================================================================================
+\fbsection{1}{The atom and its particles (handout ch.~1)}
+\fe[\S1.3]{Nuclide notation}{\nuc{A}{Z}{X},\qquad A = Z + N}
+  {$Z$ atomic number (protons), $N = A - Z$ neutrons, $A$ mass number (nucleons). The
+   neutral atom has $Z$ electrons.}
+\fe[\S1.3]{Ion}{q = (Z - n_e)\,e}
+  {$n_e$ number of electrons: $\mathrm{X}^{k+}$ has $Z - k$, $\mathrm{X}^{k-}$ has
+   $Z + k$.}
+\fe[\S1.3]{Isotopes; isoelectronic species}{\text{isotopes: same } Z,\ \text{different } A}
+  {Isoelectronic: same number of electrons (\ce{F-}, Ne, \ce{Na+}, \ce{Mg^2+}: 10).}
+\fe[\S1.2.3]{Atomic mass unit}
+  {1\ \mathrm{amu} = \tfrac{1}{12}\,m\big(\nuc{12}{}{C}\big) = 1.6605\times10^{-27}\ \mathrm{kg}}
+  {$m_p = 1.0073$, $m_n = 1.0087$, $m_e = 1/1823$ amu (Table 1-1).}
+\fe[\S5.1]{Mass of an atom}{m \approx A\ \mathrm{amu}}
+  {Sum of protons and neutrons; the electrons are negligible.}
+\fe*{Mole and molar mass}{n = \frac{N}{N_A} = \frac{m}{M}}
+  {$N$ number of entities, $m$ mass, $M$ molar mass. Since $N_A\times1~\mathrm{amu} = 1$~g,
+   $M$ in g\,mol$^{-1}$ equals the atomic mass in amu.}
+\fe*[worksheet 1]{Specific charge (Thomson)}{\frac{e}{m_e} = 1.76\times10^{11}\ \mathrm{C\,kg^{-1}}}
+  {Charge-to-mass ratio from the deflection of cathode rays; $e/m_p$ is 1836 times smaller.}
+\fe[\S1.2.3]{Charge quantisation (Millikan)}{q = k\,e,\quad k \in \mathbb Z}
+  {Every charge is a whole multiple of $e = 1.6\times10^{-19}$~C.}
+\fe*{Coulomb's law}{F = k\,\frac{|q_1 q_2|}{r^2},\qquad E_p = k\,\frac{q_1 q_2}{r}}
+  {$k = 8.99\times10^9$~N\,m$^2$\,C$^{-2}$, $r$ in m. $E_p > 0$: repulsion.}
+\fe*[worksheet 1]{Closest approach (Rutherford)}{d = k\,\frac{(2e)(Ze)}{E_k}}
+  {Head-on $\alpha$ particle (charge $2e$, kinetic energy $E_k$) stops where $E_k$ has
+   become potential energy: an upper bound for the nucleus radius.}
+\fe*{Density of a nucleus}{\rho = \frac{m}{\tfrac43\pi r^3}}
+  {Nuclear matter: about $2\times10^{17}$~kg\,m$^{-3}$.}
+\fe*[worksheet 1]{Mass defect, binding energy}
+  {\begin{gathered}\Delta m = Z(m_p + m_e) + N m_n - m_{\text{atom}}\\ E = \Delta m\,c^2\end{gathered}}
+  {$\Delta m$ in kg for $E$ in J; $1~\mathrm{amu}\times c^2 = 931.5$~MeV.}
+\fe[\S1.2.3]{Sizes}{\begin{gathered}r_{\text{atom}} \sim 100\ \mathrm{pm}\\
+  r_{\text{nucleus}} \sim 10^{-3}\text{ to }10^{-2}\ \mathrm{pm}\end{gathered}}
+  {The nucleus is 10\,000 to 100\,000 times smaller than the atom.}
+
+% =====================================================================================
+\fbsection{2}{Light and atomic spectra (handout ch.~2)}
+\fbsub{Electromagnetic radiation and photons}
+\fe[\S2.1]{Wavelength, period, frequency}{\lambda = c\,T,\qquad \nu = \frac1T,\qquad c = \lambda\,\nu}
+  {$c = 3.00\times10^8$~m\,s$^{-1}$ in vacuum; $\lambda$ in m, $T$ in s, $\nu$ in Hz
+   ($\mathrm s^{-1}$).}
+\fe*{Wavenumber}{\tilde\nu = \frac{1}{\lambda} = \frac{\nu}{c}}
+  {In m$^{-1}$ (spectroscopy often uses cm$^{-1}$).}
+\fe[\S2.2]{Photon energy (Planck)}{E = h\,\nu = \frac{h\,c}{\lambda}}
+  {$h = 6.62\times10^{-34}$~J\,s. Shortcut: $E\,(\mathrm{eV}) \approx 1240/\lambda\,(\mathrm{nm})$.}
+\fe*[worksheet 2]{Photons in a beam}{\frac{N}{t} = \frac{P}{h\,\nu} = \frac{P\,\lambda}{h\,c}}
+  {$P$ power in W, $N/t$ photons per second. One mole of photons: $N_A\,h\nu$.}
+
+\fbsub{The hydrogen spectrum}
+\fe[\S2.4.3]{Balmer series (visible)}{\nu = R_H\left(\frac{1}{2^2} - \frac{1}{n^2}\right),
+  \quad n = 3, 4, 5, \dots}
+  {Lines at 656, 486, 434, 410~nm. The handout prints ``$n = 1, 2, 3\dots$'': it must be
+   $n \ge 3$.}
+\fe[\S2.4.3]{Rydberg formula}{\nu = R_H\left(\frac{1}{n_1^2} - \frac{1}{n_2^2}\right),\quad n_1 < n_2}
+  {$R_H = 3.29\times10^{15}$~Hz. As a wavelength:
+   $\frac1\lambda = \frac{R_H}{c}\Big(\frac{1}{n_1^2} - \frac{1}{n_2^2}\Big)$.}
+\fe*{Series limit}{\nu_{\lim} = \frac{R_H}{n_1^2},\qquad \lambda_{\lim} = \frac{c\,n_1^2}{R_H}}
+  {From $n_2 = \infty$ (ionised state) to $n_1$: the shortest wavelength of the series.}
+\fe*{Number of lines}{\frac{n\,(n-1)}{2}}
+  {Lines that atoms excited up to level $n$ can emit (every pair of levels).}
+\par\smallskip
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Series & $n_1$ & Region & First line ($n_2 = n_1 + 1$) & Limit ($n_2 = \infty$)\\
+\midrule
+Lyman & 1 & UV & 122~nm & 91.2~nm\\
+Balmer & 2 & visible & 657~nm & 365~nm\\
+Paschen & 3 & IR & 1876~nm & 821~nm\\
+Brackett\dagnote & 4 & IR & 4.05~\textmu m & 1.46~\textmu m\\
+Pfund\dagnote & 5 & IR & 7.46~\textmu m & 2.28~\textmu m\\
+\bottomrule
+\end{tabular}\\[2pt]
+{\footnotesize Computed with $R_H = 3.29\times10^{15}$~Hz and $c = 3.00\times10^8$~m\,s$^{-1}$
+(measured H$\alpha$: 656~nm).}
+\end{center}
+
+\fbsub{Bohr model and energy levels}
+\fe[\S2.5]{Energy levels of H}{E_n = -\frac{13.6}{n^2}\ \mathrm{eV},\quad n \in \mathbb N^*}
+  {$n = 1$: ground state ($-13.6$~eV); $n > 1$: excited states; $n \to \infty$: $E = 0$,
+   ionised. $13.6~\mathrm{eV} = h\,R_H$.}
+\fe[\S3.3.1]{Hydrogen-like ion}{E_n = -\frac{13.6\,Z^2}{n^2}\ \mathrm{eV}}
+  {One nucleus of charge $Ze$ and one electron (\ce{He+}, \ce{Li^2+}). Its lines:
+   $\nu = Z^2 R_H\big(\frac{1}{n_1^2} - \frac{1}{n_2^2}\big)$.}
+\fe[\S2.5]{Transition}{|\Delta E| = |E_{n_2} - E_{n_1}| = h\,\nu = \frac{h\,c}{\lambda}}
+  {Emission: the electron drops and a photon is emitted. Absorption: only a photon of
+   exactly this energy lifts it.}
+\fe*{Ionisation energy from level $n$}{\EI = \frac{13.6\,Z^2}{n^2}\ \mathrm{eV}}
+  {H in its ground state: 13.6~eV $= 1312$~kJ\,mol$^{-1}$. If $h\nu > \EI$ the electron
+   leaves with $E_k = h\nu - \EI$.}
+\fe[\S3.3.3]{Size of an orbit or AO}{r = \frac{n^2}{Z}\,a_0,\qquad a_0 = 52.9\ \mathrm{pm}}
+  {$a_0$: most probable distance between the nucleus and the 1s electron of H.}
+
+% =====================================================================================
+\fbsection{3}{Quantum numbers and atomic orbitals (handout ch.~3)}
+\fbsub{The four quantum numbers}
+\fe[\S3.2.1]{Principal $n$}{n = 1, 2, 3, \dots}
+  {Shell. Sets the energy (in H) and the size of the orbital.}
+\fe[\S3.2.2]{Secondary $\ell$}{0 \le \ell \le n - 1}
+  {Subshell: $\ell = 0, 1, 2, 3$ $\to$ s, p, d, f.}
+\fe[\S3.2.3]{Magnetic $m_\ell$}{-\ell \le m_\ell \le +\ell}
+  {Orientation: $2\ell + 1$ orbitals per subshell, of equal energy without a magnetic field.}
+\fe[\S3.4.3]{Spin $m_s$}{m_s = +\tfrac12\ (\uparrow)\quad\text{or}\quad -\tfrac12\ (\downarrow)}
+  {Two electrons per orbital, with opposite spins.}
+\fe[Table 4-1]{Counting}{\begin{gathered}\text{orbitals: } 2\ell + 1 \text{ per subshell},\ n^2
+  \text{ per shell}\\ \text{electrons: } 2(2\ell + 1) \text{ per subshell},\ 2n^2 \text{ per shell}
+  \end{gathered}}
+  {Subshells hold 2 (s), 6 (p), 10 (d), 14 (f) electrons; shells 2, 8, 18, 32.}
+
+\fbsub{Orbitals}
+\fe[\S3.3]{Atomic orbital (AO)}{\Psi_{n,\ell,m_\ell}\qquad\text{probability density } |\Psi|^2}
+  {Probability of finding the electron in a small volume $\mathrm dV$: $|\Psi|^2\,\mathrm dV$.
+   Boundary surface: 95\,\% of the probability.}
+\fe*{Normalisation}{\iiint_{\text{space}} |\Psi|^2\,\mathrm dV = 1}
+  {The electron is certainly somewhere.}
+\fe*[worksheet 3]{Radial probability density}{P(r) = 4\pi r^2\,|\Psi(r)|^2}
+  {For an s orbital. Probability per unit distance of finding the electron at $r$;
+   $\int_0^\infty P(r)\,\mathrm dr = 1$.}
+\fe*[worksheet 3]{1s of a hydrogen-like species}{P(r) = \frac{4Z^3}{a_0^3}\,r^2\,e^{-2Zr/a_0}}
+  {From $\Psi_{1s} = \frac{1}{\sqrt\pi}\big(\frac{Z}{a_0}\big)^{3/2} e^{-Zr/a_0}$.
+   Maximum at $r = a_0/Z$ ($a_0$ for H).}
+\fe*{Nodes}{\text{radial: } n - \ell - 1,\qquad \text{angular: } \ell,\qquad \text{total: } n - 1}
+  {Radial nodes are spheres, angular nodes planes (or cones); $\Psi$ changes sign across a
+   node (\S3.3.3).}
+\fe[Table 3-3]{p orbitals}{p_x,\ p_y,\ p_z\!:\ \text{nodal planes } (yOz),\ (xOz),\ (xOy)}
+  {$p_z \leftrightarrow m_\ell = 0$; $p_x$ and $p_y$ are combinations of $m_\ell = \pm1$.}
+
+\fbsub{Many-electron atoms}
+\fe[\S3.4.1]{Orbital approximation}{\Psi(1, 2, \dots, N) = \Psi(1)\,\Psi(2)\cdots\Psi(N)}
+  {Electron--electron repulsion neglected: each electron occupies its own AO.}
+\fe[\S3.4.2]{Energy of an AO}{E = E(n, \ell, Z),\qquad E_{n\mathrm s} < E_{n\mathrm p} < E_{n\mathrm d}}
+  {The levels of one shell are no longer degenerate.}
+\fe[\S3.4.2]{Madelung's rule}{\begin{gathered}\text{energy increases with } n + \ell\\
+  \text{equal } n + \ell\text{: lower } n \text{ first}\end{gathered}}
+  {Gives the filling order below.}
+\fbnote{\textbf{Filling order:}\quad 1s $<$ 2s $<$ 2p $<$ 3s $<$ 3p $<$ 4s $<$ 3d $<$ 4p
+  $<$ 5s $<$ 4d $<$ 5p $<$ 6s $<$ 4f $<$ 5d $<$ 6p $<$ 7s $<$ 5f $<$ 6d $<$ 7p}
+\fe[\S3.4.3]{Sodium D doublet (spin)}{\Delta E = h\,c\left(\frac{1}{\lambda_1} - \frac{1}{\lambda_2}\right)
+  \approx 2.1\ \mathrm{meV}}
+  {$\lambda_1 = 589.0$~nm, $\lambda_2 = 589.6$~nm: the spin splits the 3p level in two.}
+\fe[\S3.2.3]{Zeeman effect}{\text{a level } \ell \text{ splits into } 2\ell + 1 \text{ sublevels}}
+  {In a magnetic field $B$. Shift\dagnote\ $\Delta E = m_\ell\,\mu_B\,B$, with
+   $\mu_B = 9.27\times10^{-24}$~J\,T$^{-1}$.}
+
+% =====================================================================================
+\fbsection{4}{Electronic configuration and periodic table (handout ch.~4)}
+\fe[\S4.1.1]{Aufbau principle}{\text{fill the AOs by increasing energy}}
+  {In Madelung order. Gives the ground-state configuration.}
+\fe[\S4.1.2]{Pauli exclusion principle}{\text{no two electrons share } (n, \ell, m_\ell, m_s)}
+  {At most 2 electrons per AO, with opposite spins.}
+\fe[Table 4-1]{Subshell capacity}{\begin{array}{lcccc}
+  & \text{s} & \text{p} & \text{d} & \text{f}\\ \text{AOs} & 1 & 3 & 5 & 7\\
+  \text{electrons} & 2 & 6 & 10 & 14\end{array}}
+  {$2\ell + 1$ AOs and $2(2\ell + 1)$ electrons.}
+\fe[\S4.1.3]{Hund's rule}{\begin{gathered}\text{maximum number of parallel}\\
+  \text{spins in a subshell}\end{gathered}}
+  {Put one electron in each AO of the subshell (same $m_s$) before pairing. Unpaired
+   electrons make the atom paramagnetic.}
+\fe[\S4.1.5]{Configuration}{\text{X: [previous noble gas] + valence electrons}}
+  {Cl: [Ne]\,3s$^2$\,3p$^5$; Fe: [Ar]\,3d$^6$\,4s$^2$. Core electrons: the noble-gas part.}
+\fe*{Ions}{\text{cations lose } n\mathrm s \text{ before } (n-1)\mathrm d}
+  {\ce{Fe^2+}: [Ar]\,3d$^6$; \ce{Fe^3+}: [Ar]\,3d$^5$. Anions fill the next free AOs.}
+\fe[\S4.2.2]{Exceptions (d block)}{\mathrm{Cr}\!:\ [\mathrm{Ar}]\,\mathrm{3d}^5\,\mathrm{4s}^1\qquad
+  \mathrm{Cu}\!:\ [\mathrm{Ar}]\,\mathrm{3d}^{10}\,\mathrm{4s}^1}
+  {A half-filled or full d subshell is more stable (also Mo, Ag, Au).}
+\fe[\S4.2]{Reading the table}{\begin{gathered}\text{period} = n \text{ of the valence shell}\\
+  \text{block} = \text{subshell being filled}\end{gathered}}
+  {s block: groups 1--2 and He; p block: 13--18; d block: 3--12; f block: lanthanides
+   and actinides.}
+\fe[\S4.2.2]{Valence electrons and group}{\begin{gathered}\text{s, p blocks: } N_{\text{val}}
+  = \text{position in the period}\\ \text{d block: } (n-1)\text d^{x}\,n\text s^2,\ x = \text{group} - 2
+  \end{gathered}}
+  {Groups 13--18 have 3--8 valence electrons. In the d block, valence electrons $=$ group
+   number (Fe: group 8). He: 1s$^2$ but group 18.}
+\fe*{Period lengths}{2,\ 8,\ 8,\ 18,\ 18,\ 32,\ 32}
+  {Twice the number of AOs filled in the period: s; s+p; s+d+p; s+f+d+p.}
+
+% =====================================================================================
+\fbsection{5}{Atomic properties and periodicity (handout ch.~5)}
+\fbsub{Atomic mass}
+\fe[\S5.1.2]{Average atomic mass}{\bar M = \sum_i x_i\,M_i,\qquad \sum_i x_i = 1}
+  {$x_i$ natural abundance (fraction) of isotope $i$, $M_i$ its mass in amu.
+   Cl: $0.7577\times34.97 + 0.2423\times36.97 = 35.45$~amu.}
+\fe*[worksheet 5]{Two isotopes: abundance}{x_1 = \frac{M_2 - \bar M}{M_2 - M_1}}
+  {From $\bar M = x_1 M_1 + (1 - x_1)\,M_2$.}
+
+\fbsub{Effective nuclear charge and radius}
+\fe*[study guide]{Effective nuclear charge}{\Zeff = Z - \sigma}
+  {$\sigma$: screening constant, the shielding by the other electrons.}
+\fe*[study guide]{Slater's rules ($n$s or $n$p electron)}
+  {\sigma = 0.35\,N_{n} + 0.85\,N_{n-1} + 1.00\,N_{\le n-2}}
+  {$N_n$: other electrons of shell $n$ (0.30 in 1s); $N_{n-1}$: electrons of shell $n - 1$;
+   $N_{\le n-2}$: deeper ones. Cl: $\sigma = 10.9$, $\Zeff = 6.1$; Na: $\Zeff = 2.2$.}
+\fe*{Size trend}{r \propto \frac{n^2}{\Zeff}}
+  {From $r = n^2 a_0/Z$ with $Z \to \Zeff$: smaller across a period, larger down a group.}
+\fe[\S5.2.1]{Measured radii}{\begin{gathered}r_{\text{cov}} = \tfrac12\,d_{\mathrm{A-A}},\qquad
+  r_{\text{met}} = \tfrac12\,d_{\text{metal}}\\ r_{\text{vdW}} = \tfrac12\,d_{\text{non-bonded}}\end{gathered}}
+  {Ionic crystal: $d = r_+ + r_-$. $r_{\text{cation}} < r_{\text{atom}} < r_{\text{anion}}$;
+   $r_{\text{vdW}} > r_{\text{cov}}$.}
+
+\fbsub{Ionisation energy}
+\fe[\S5.3]{First ionisation energy}{\mathrm{X(g)} \longrightarrow \mathrm{X^+(g)} + \mathrm{e^-}}
+  {$\EI > 0$: minimum energy to remove the outermost electron, in kJ\,mol$^{-1}$.
+   Successive energies: $E_{\mathrm I1} < E_{\mathrm I2} < E_{\mathrm I3}\dots$}
+\fe*{eV per atom to kJ per mole}{E\,(\mathrm{kJ\,mol^{-1}}) = \frac{E\,(\mathrm J)\times N_A}{1000}}
+  {$1~\mathrm{eV/atom} = 96.5$~kJ\,mol$^{-1}$. H: 13.6~eV $= 1312$~kJ\,mol$^{-1}$.}
+\fe[\S5.3.1]{Photoelectron spectroscopy}{\EI = h\,\nu - E_k,\qquad E_k = \tfrac12\,m_e v^2}
+  {A photon of known energy $h\nu$ ejects an electron; its kinetic energy $E_k$ gives the
+   binding energy of its AO.}
+
+\fbsub{Polarity, polarisability, electronegativity}
+\fe[\S5.4]{Dipole moment}{\vec\mu = q\,\vec d}
+  {Two charges $\pm q$ a distance $d$ apart; arrow from $-q$ to $+q$. Unit: C\,m or D
+   ($1~\mathrm D = 3.336\times10^{-30}$~C\,m).}
+\fe*{Partial charge (ionic character)}{\delta = \frac{\mu}{e\,d}}
+  {$d$ bond length. $\delta$ in units of $e$: 0 for a covalent bond, 1 for a fully ionic one
+   (ionic character $= 100\,\delta$~\%).}
+\fe*{Induced dipole}{\vec\mu_{\text{ind}} = \alpha\,\vec E}
+  {$\alpha$ polarisability: large for big, diffuse electron clouds.}
+\fe*[\S5.5.1, Table 5-3]{Pauling electronegativity}{\begin{gathered}|\chi_A - \chi_B| = 0.102\,\sqrt\Delta\\
+  \Delta = D_{AB} - \sqrt{D_{AA}\,D_{BB}}\end{gathered}}
+  {$D$ bond dissociation energies in kJ\,mol$^{-1}$; reference $\chi_{\mathrm H} = 2.20$.
+   H--F: $\Delta = 304.5$, $|\Delta\chi| = 1.78$.}
+\fe*[\S5.5.1]{Allred--Rochow electronegativity}{\chi = 0.359\,\frac{\Zeff}{r^2} + 0.744}
+  {$r$ covalent radius in \AA. Cl: $\Zeff = 6.1$, $r = 0.99$~\AA, $\chi = 2.98$.}
+\fe[\S5.5]{Bond polarity}{\begin{gathered}\Delta\chi = 0\text{: non-polar};\quad
+  \Delta\chi > 0\text{: polar}\\ \Delta\chi \gtrsim 2\text{: ionic}\end{gathered}}
+  {The more electronegative atom carries $\delta-$.}
+
+\fbsub{Trends in the periodic table}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright}p{0.2\textwidth}>{\raggedright}p{0.17\textwidth}X@{}}
+\toprule
+Property & Across a period ($\rightarrow$) & Down a group ($\downarrow$) & Reason\\
+\midrule
+$\Zeff$ (valence) & increases & almost constant & poor screening inside a shell\\
+Atomic radius & decreases & increases & $r \propto n^2/\Zeff$\\
+Ionisation energy & increases (dips: Be $>$ B, N $>$ O) & decreases & electron held more
+  strongly by a larger $\Zeff$ at a smaller $r$\\
+Electronegativity & increases (F: 3.98) & decreases & same as ionisation energy\\
+Polarisability & decreases & increases & follows the radius\\
+\bottomrule
+\end{tabularx}
+\end{center}
+\fbnote{\textbf{Anomalies:} Be $>$ B because B loses a 2p electron, higher in energy than
+  2s; N $>$ O because O loses a paired 2p electron (pairing repulsion).
+  \textbf{Isoelectronic series:} the radius decreases as $Z$ increases
+  (\ce{O^2-} $>$ \ce{F-} $>$ Ne $>$ \ce{Na+} $>$ \ce{Mg^2+}).}
+
+% =====================================================================================
+\fbsection{6}{Going further: standard quantum results\dagnote}
+\fbnote{None of these is printed in the handout. They are the usual companions of the
+  quantum model and appear in many exercises.}
+\fe*{de Broglie wavelength}{\lambda = \frac{h}{p} = \frac{h}{m\,v}}
+  {Any particle is also a wave. Electron accelerated by a voltage $U$:
+   $\lambda = h/\sqrt{2 m_e e U}$.}
+\fe*{Photon momentum}{p = \frac{h}{\lambda} = \frac{E}{c}}
+  {A photon has no mass but carries momentum.}
+\fe*{Heisenberg uncertainty}{\Delta x\,\Delta p_x \ge \frac{\hbar}{2}}
+  {Position and momentum cannot both be known exactly: no classical orbit.}
+\fe*{Photoelectric effect}{E_{k,\max} = h\,\nu - W_0,\qquad \nu_0 = \frac{W_0}{h}}
+  {$W_0$ work function of the metal; no electron below the threshold $\nu_0$.}
+\fe*{Bohr: quantised angular momentum}{m_e\,v\,r = n\,\hbar}
+  {With Coulomb's force as the centripetal force, it gives the three results below.}
+\fe*{Bohr radius and speed}{\begin{gathered}a_0 = \frac{\varepsilon_0 h^2}{\pi m_e e^2}\\
+  v_n = \frac{Z}{n}\,\frac{e^2}{2\varepsilon_0 h} = \frac{Z}{n}\times2.19\times10^6\ \mathrm{m\,s^{-1}}
+  \end{gathered}}
+  {$a_0 = 52.9$~pm, $r_n = n^2 a_0/Z$.}
+\fe*{Bohr energy and $R_H$}{E_n = -\frac{m_e e^4}{8\varepsilon_0^2 h^2}\,\frac{Z^2}{n^2},\qquad
+  R_H = \frac{m_e e^4}{8\varepsilon_0^2 h^3}}
+  {$m_e e^4/(8\varepsilon_0^2 h^2) = 13.6$~eV and $R_H = 3.29\times10^{15}$~Hz.}
+\fe*{Schrödinger equation}{-\frac{\hbar^2}{2m}\nabla^2\Psi + V\,\Psi = E\,\Psi}
+  {Its solutions for H are the AOs $\Psi_{n,\ell,m_\ell}$ and the energies $E_n$.}
+\fe*{Particle in a box (1D)}{E_n = \frac{n^2 h^2}{8 m L^2},\qquad
+  \Psi_n(x) = \sqrt{\frac2L}\,\sin\frac{n\pi x}{L}}
+  {Box of length $L$, $n = 1, 2, 3\dots$: confinement quantises the energy.}
+\fe*{Mulliken electronegativity}{\chi_M = \frac{\EI + E_{\text{ea}}}{2}}
+  {$E_{\text{ea}}$ electron affinity; both in eV.}
+
+% =====================================================================================
+\summaryheading{Summary}{Units of all quantities}
+\begin{minipage}[t]{0.485\textwidth}\vspace{0pt}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}[t]{@{}l>{$}l<{$}l@{}}
+\toprule
+Wavelength & \lambda & m (nm for light)\\
+Frequency & \nu & hertz, Hz $=$ s$^{-1}$\\
+Wavenumber & \tilde\nu & m$^{-1}$ (cm$^{-1}$)\\
+Energy of a photon or level & E & J, or eV per atom\\
+Ionisation energy & E_{\mathrm I} & kJ\,mol$^{-1}$ (chemistry)\\
+Rydberg constant & R_H & Hz (as in the handout)\\
+Planck constant & h & J\,s\\
+\bottomrule
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}\vspace{0pt}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}[t]{@{}l>{$}l<{$}l@{}}
+\toprule
+Radius, distance & r,\ a_0 & m (pm or \AA)\\
+Atomic mass & m & amu (or kg)\\
+Molar mass & M & g\,mol$^{-1}$\\
+Dipole moment & \mu & C\,m, or debye (D)\\
+Bond energy & D_{AB} & kJ\,mol$^{-1}$\\
+Electronegativity & \chi & no unit\\
+Quantum numbers & n,\ \ell,\ m_\ell,\ m_s & no unit\\
+\bottomrule
+\end{tabular}
+\end{minipage}
+
+\begin{trapbox}[title={Common slips}]
+\small
+$\nu$ (frequency, Greek nu) is not $v$ (speed).\quad $R_H$ is in Hz here; in m$^{-1}$
+it is $R_H/c$.\quad Energies per atom (eV, J) and per mole (kJ\,mol$^{-1}$) differ by
+$N_A$.\quad Wavelengths go in metres in $E = hc/\lambda$.
+\end{trapbox}
+
+\end{document}

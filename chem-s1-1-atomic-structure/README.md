@@ -10,6 +10,9 @@ three parts:
 - **Worksheet**: 15 questions that get progressively harder, with full worked answers in a
   separate booklet.
 
+All the formulas of the five chapters are also collected in the
+[quantum chemistry formula booklet](../formula-booklets/pdf/Formula-Booklet_Quantum-Chemistry.pdf).
+
 ## What to print
 
 | File | Contents | Pages |

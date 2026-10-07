@@ -1,0 +1,546 @@
+% Physics formula booklet: every formula of the IBE3 Physics for Engineers notes
+% Electricity Part 1 (Boxes 1-24) and Thermodynamics Part 1 (Boxes 1-18), with symbols,
+% units and conditions, plus a marked part on energy transfers and heat engines.
+% Entries marked with a dagger (\fe*) are not printed in the notes.
+\documentclass[10pt,a4paper]{article}
+\usepackage{formulabook}
+\colorlet{theme}{navy}
+\renewcommand{\booktitle}{Physics for Engineers \textperiodcentered{} Formula booklet}
+\newcommand{\ETh}{E_{\mathrm{Th}}}
+\newcommand{\RTh}{R_{\mathrm{Th}}}
+\newcommand{\INo}{I_{\mathrm{No}}}
+\newcommand{\RNo}{R_{\mathrm{No}}}
+\newcommand{\Req}{R_{\mathrm{eq}}}
+\newcommand{\ist}{i^{\star}}
+\newcommand{\ust}{u^{\star}}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\pd}[3]{\left(\frac{\partial #1}{\partial #2}\right)_{\!#3}}
+
+\begin{document}
+\thispagestyle{first}
+
+\begin{tcolorbox}[enhanced, colback=theme, colframe=theme, coltext=white, arc=2mm,
+    boxrule=0pt, left=10pt, right=10pt, top=9pt, bottom=9pt]
+  {\LARGE\bfseries Physics for Engineers}\\[3pt]
+  {\Large Formula booklet}\\[6pt]
+  {\small Electricity Part 1: foundations of DC circuit theory \textperiodcentered{}
+  Thermodynamics Part 1: description of a system \textperiodcentered{} heat engines}
+\end{tcolorbox}
+
+\begin{keybox}[title={How to read this booklet}]
+\small
+Each row gives a quantity and where it is in the notes (Box number, equation or page), the
+formula, then the symbols with their units and when the formula applies. Page numbers refer to
+the lecture notes, whose blank boxes are filled in here.
+\begin{itemize}
+  \item \dagnote\ marks a result that is \textbf{not printed in the notes}: a direct
+    consequence, a standard result used in the exercises, or the material of Part~III. Use
+    it when it helps, but quote the notes' form when there is one.
+  \item Part~III (work, heat, heat engines) goes beyond Part~1 of the Thermodynamics notes.
+    It includes the heat taken in by an isothermal expansion,
+    $Q = nRT_H\ln(V_{\max}/V_{\min})$.
+\end{itemize}
+\end{keybox}
+
+\begin{minipage}[t]{0.47\textwidth}
+\fbsub{Contents}
+\fbcontents
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\textwidth}
+\fbsub{Constants}
+{\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}l@{\hspace{6pt}}l@{}}
+Elementary charge & $e = 1.6\times10^{-19}$~C\\
+Avogadro constant & $N_A = 6.022\times10^{23}$~mol$^{-1}$\\
+Ideal gas constant & $R = 8.314$~J\,mol$^{-1}$\,K$^{-1}$ ($\approx 8.3$)\\
+Boltzmann constant & $k_B = R/N_A = 1.38\times10^{-23}$~J\,K$^{-1}$\dagnote\\
+Gravity & $g = 9.81$~m\,s$^{-2}$\\
+At 300~K & $RT \approx 2.5\times10^{3}$~J\,mol$^{-1}$\\
+\end{tabular}}
+
+\fbsub{Conversions}
+{\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}l@{}}
+$T\,(\mathrm K) = \theta\,(^\circ\mathrm C) + 273.15$\\
+$1~\mathrm{bar} = 10^{5}$~Pa;\quad $1~\mathrm{atm} = 1.013\times10^{5}$~Pa\\
+$1~\mathrm L = 1~\mathrm{dm}^3 = 10^{-3}$~m$^3$;\quad $1~\mathrm{mL} = 1~\mathrm{cm}^3 = 10^{-6}$~m$^3$\\
+$1~\mathrm{mm}^2 = 10^{-6}$~m$^2$;\quad $1~\mathrm{cm}^2 = 10^{-4}$~m$^2$\\
+$1~\mathrm{W\,h} = 3600$~J;\quad $1~\mathrm{kW\,h} = 3.6\times10^{6}$~J\\
+$1~\mathrm{A\,h} = 3600$~C;\quad $1~\mathrm{k\Omega}\times1~\mathrm{mA} = 1$~V\\
+\end{tabular}}
+
+\fbsub{SI prefixes}
+{\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}lll@{}}
+G (giga) $10^{9}$ & M (mega) $10^{6}$ & k (kilo) $10^{3}$\\
+m (milli) $10^{-3}$ & \textmu{} (micro) $10^{-6}$ & n (nano) $10^{-9}$\\
+p (pico) $10^{-12}$ & & \\
+\end{tabular}}\\[3pt]
+{\footnotesize Exact symbols: k (kilo) $\neq$ K (kelvin), m (milli) $\neq$ M (mega).}
+\end{minipage}
+
+% =====================================================================================
+\partheading{Part I}{Electricity: foundations of DC circuit theory}
+\fbnote{Notes Elec-S1 Part~1 (38 pages). Arrows: the arrow of $u_{AB}$ points towards $A$.
+  Receiver convention: $u$ and $i$ arrows opposite; generator convention: same direction.}
+
+\fbsection{1.A}{Electric voltage (pp.~2--7)}
+\fe[Box 1]{Electric voltage}{u_{AB} = V_A - V_B}
+  {Volt (V). Only potential differences can be measured; potential and voltage have the
+   same unit.}
+\fe[eq.~(1)]{Sign of a voltage}{u_{AB} = -u_{BA}}
+  {$u_{AB} > 0 \Leftrightarrow V_A > V_B$.}
+\fe*{Adding voltages}{u_{AC} = u_{AB} + u_{BC}}
+  {Potentials subtract like heights; the basis of the mesh law.}
+\fe[p.~2]{Ground}{V_{\text{ground}} = 0}
+  {Reference of potentials: the wire on the $-$ terminal of the source. ``Earth'' if it is
+   connected to the Earth.}
+\fe[Box 2]{Ideal voltage source}{u = e\quad\text{whatever } i}
+  {$e$: electromotive force, in volts (not newtons). A real source has an internal
+   resistance: $u$ drops as $i$ grows (see the Thévenin model, 3.B).}
+\fe[p.~7]{Voltmeter}{R_V \to \infty}
+  {In parallel, COM on the $-$ side (otherwise the sign flips); $R_V = 1$ to 10~M$\Omega$.}
+\fbnote{\textbf{Orders of magnitude} (Tab.~1): neuron $\sim$100~mV; AA cell 1.5~V; Li-ion
+  3.6--4.2~V; mains 230~V$_{\text{rms}}$; high-speed train line 25~kV; extra-high-voltage line
+  400~kV.}
+
+\fbsection{1.B}{Electric current (pp.~7--11)}
+\fe[Box 3]{Electric current}{i = \frac{\dd q}{\dd t}}
+  {Ampere (A), an SI base unit: $1~\mathrm A = 1~\mathrm{C\,s^{-1}}$. Same current all
+   along a series path. Conventional direction: that of positive charges.}
+\fe*{Charge transported}{q = \int_{t_1}^{t_2} i\,\dd t\qquad\text{DC: } q = i\,\Delta t}
+  {Coulomb (C).}
+\fe*{Number of electrons}{N = \frac{|q|}{e} = \frac{i\,\Delta t}{e}}
+  {$e = 1.6\times10^{-19}$~C.}
+\fe[Box 4, eq.~(2)]{Microscopic expression}{i = n\,q\,v\,S}
+  {$n$ carrier density (m$^{-3}$), $q$ carrier charge (C), $v$ drift velocity
+   (m\,s$^{-1}$), $S$ cross-section (m$^2$). Electrons: $i = -n e v S$.}
+\fe*{Drift velocity}{v = \frac{i}{n\,e\,S}}
+  {Copper, 1~mm$^2$, 1~A: $v \approx 7\times10^{-5}$~m\,s$^{-1}$. Not the speed of the
+   signal.}
+\fe*{Current density}{j = \frac{i}{S} = n\,|q|\,v}{A\,m$^{-2}$.}
+\fe[p.~11]{Ammeter}{R_A \to 0}
+  {In series (open the branch to insert it); $R_A < 1~\Omega$.}
+
+\fbsection{1.C}{Circuits and two-terminal components (pp.~11--14)}
+\fe[Box 5]{Circuit vocabulary}{\begin{gathered}\text{node: junction of} \ge 3 \text{ conductors}\\
+  \text{branch: between two nodes}\end{gathered}}
+  {Loop: any closed path. Mesh: a loop containing no other loop. Points joined only by
+   wire form one (electrically distinct) node.}
+\fe[3.A]{Counting equations}{N - 1 \text{ node laws},\qquad M = B - N + 1 \text{ meshes}}
+  {$N$ distinct nodes, $B$ branches: $B$ equations for the $B$ branch currents.}
+\fe[Box 6]{Series and parallel}{\begin{gathered}\text{series: same } i,\quad u = \textstyle\sum_k u_k\\
+  \text{parallel: same } u,\quad i = \textstyle\sum_k i_k\end{gathered}}
+  {Same current in series (node law), voltages add (mesh law). Same voltage in parallel
+   (mesh law), currents add at the nodes (node law).}
+\fe[p.~13]{Direction of the current}{\text{outside the source: from } \oplus \text{ to } \ominus}
+  {Electrons flow the other way ($i = -n e v S$).}
+\fe[Box 7]{Electrical power}{p = u\,i}
+  {Watt: $1~\mathrm W = 1~\mathrm V\times1~\mathrm A$. Receiver convention: $p > 0$ is
+   received; generator convention: $p > 0$ is supplied.}
+\fe[eqs.~(4), (5)]{Electrical energy}{E = \int_{t_1}^{t_2} u\,i\,\dd t\qquad\text{DC: } E = u_0\,i_0\,\Delta t}
+  {Joule (J); $1~\mathrm{W\,h} = 3600$~J.}
+
+\fbsection{2.A}{Characteristic curve (pp.~14--19)}
+\fe[Box 8]{Characteristic}{i = f(u)\quad\text{or}\quad u = g(i)}
+  {Pairs $(u_k, i_k)$ measured in many states. Depends on the convention: receiver for a
+   passive component, generator for an active one.}
+\fe[Box 9]{Resistor}{i = \frac{u}{R}\text{: a line through } O}
+  {Slope of $i = f(u)$: $G = 1/R$. Slope of $u = g(i)$: $R$. The signature of an ohmic
+   conductor.}
+\fe[Box 10]{Quick (naive) estimate of $R$}{R = \frac{1}{N}\sum_{k=1}^{N}\frac{u_k}{i_k}}
+  {Mean of the ratios $r_k = u_k/i_k$; treats the noisy low-current points like the others.}
+\fe[Box 11]{Estimate by linear regression}{\hat R = \frac{\sum_k u_k\,i_k}{\sum_k i_k^2}}
+  {Minimises $\phi(R) = \sum_k (u_k - R\,i_k)^2$: best line $u = \hat R\,i$ through $O$.}
+\fe[p.~18]{Standard uncertainty on $\hat R$}{u(\hat R) = \sqrt{\frac{\frac{1}{N-1}\sum_k
+  (u_k - \hat R\,i_k)^2}{\sum_k i_k^2}}}
+  {$u_k - \hat R\,i_k$: residuals (Tab.~4).}
+\fe[Figs.~15, 19]{Other characteristics}{\text{not lines through } O}
+  {Ideal voltage source: vertical line $u = E$. Ideal current source: horizontal line
+   $i = I_0$. Lamp: curved. Diode, Zener diode ($-U_Z$).}
+
+\fbsection{2.B}{Ohm's law and Joule's law (pp.~19--21)}
+\fe[Box 12]{Ohm's law}{u = R\,i}
+  {Receiver convention ($u = -R\,i$ in generator convention). $R$ in ohms ($\Omega$).}
+\fe[eq.~(6)]{Conductance}{G = \frac{1}{R},\qquad i = G\,u}{Siemens: $1~\mathrm S = 1~\Omega^{-1}$.}
+\fe[Box 13, eq.~(7)]{Joule's law}{p = u\,i = R\,i^2 = \frac{u^2}{R}}
+  {Power turned into heat by $R$ (W). It is $R\,i^2$, never $i\,R^2$.}
+\fe*{Heat released}{E_J = R\,i^2\,\Delta t}{Constant current $i$ for a time $\Delta t$.}
+\fbnote{\textbf{Typical resistances} (Tab.~6): lab lead, a few tens of m$\Omega$; ammeter,
+  10~m$\Omega$ to a few $\Omega$; lab resistor, 1~$\Omega$ to 1~M$\Omega$; dry skin, a few
+  k$\Omega$ to tens of k$\Omega$; voltmeter input, 1 to 10~M$\Omega$.}
+
+\fbsection{2.C}{Pouillet's law (pp.~21--22)}
+\fe[Box 14]{Pouillet's law}{R = \rho\,\frac{L}{S}}
+  {$\rho$ resistivity ($\Omega$\,m), $L$ length (m), $S$ cross-section (m$^2$). Circular
+   wire: $S = \pi d^2/4$.}
+\fe[Box 15]{Conductivity}{\sigma = \frac{1}{\rho},\qquad R = \frac{L}{\sigma\,S}}
+  {S\,m$^{-1}$. Good conductor: small $\rho$, large $\sigma$.}
+\fe*{Scaling}{R \propto \frac{L}{d^2}}{Doubling the diameter divides $R$ by 4.}
+\par\smallskip
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Material (Tab.~7) & Silver & Copper & Aluminium & Iron & Graphite\\
+\midrule
+$\rho$ ($\Omega$\,m) & $1.6\times10^{-8}$ & $1.7\times10^{-8}$ & $2.8\times10^{-8}$ &
+  $1.0\times10^{-7}$ & $\sim3\times10^{-5}$\\
+$\sigma$ (S\,m$^{-1}$) & $6.3\times10^{7}$ & $5.9\times10^{7}$ & $3.6\times10^{7}$ &
+  $1.0\times10^{7}$ & $\sim3\times10^{4}$\\
+\bottomrule
+\end{tabular}\\[2pt]
+{\footnotesize For most metals $\rho$ increases with temperature. Glass: $\rho$ very large.}
+\end{center}
+
+\fbsection{3.A}{Kirchhoff's laws and their consequences (pp.~22--29)}
+\fe[Box 16]{Node law}{\sum i_{\text{in}} = \sum i_{\text{out}}}
+  {Conservation of charge: nothing piles up at a node.}
+\fe[Box 16]{Mesh law}{\sum_{\text{mesh}} \varepsilon_k\,u_k = 0}
+  {Conservation of energy. $\varepsilon_k = +1$ if the arrow of $u_k$ points along the
+   direction of travel, $-1$ otherwise.}
+\fe[Box 17, eq.~(8)]{Resistors in series}{\Req = R_1 + R_2 + \dots + R_n}
+  {Larger than the largest $R_k$; $n$ identical: $nR$.}
+\fe[Box 18, eq.~(9)]{Resistors in parallel}{\frac{1}{\Req} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n}}
+  {$G_{\text{eq}} = \sum G_k$. Smaller than the smallest $R_k$; $n$ identical: $R/n$.}
+\fe[eq.~(10)]{Two in parallel}{\Req = \frac{R_1 R_2}{R_1 + R_2}}{Product over sum.}
+\fe[Box 19, eq.~(12)]{Voltage divider}{u_1 = \frac{R_1}{R_1 + R_2}\,u,\qquad u_2 = \frac{R_2}{R_1 + R_2}\,u}
+  {Same current in $R_1$ and $R_2$ (nothing drawn from the midpoint). $u_1/u_2 = R_1/R_2$.
+   With a load $R_L$ across $R_2$: use $R_2 \parallel R_L$.}
+\fe*{Current divider}{i_1 = \frac{R_2}{R_1 + R_2}\,i = \frac{G_1}{G_1 + G_2}\,i}
+  {Two resistors in parallel sharing $i$ (crossed indices).}
+\fe[Box 20, eq.~(17)]{Millman's theorem}{V_O = \frac{\sum_k V_k/R_k}{\sum_k 1/R_k}}
+  {Node $O$ joined only through resistors $R_k$ to potentials $V_k$. Source $E_k$ in the
+   branch: $V_k = \pm E_k$; branch to ground: $V_k = 0$ but $1/R_k$ stays below.}
+
+\fbsection{3.B}{Thévenin's and Norton's theorems (pp.~29--33)}
+\fe[Fig.~25]{Thévenin model}{u = \ETh - \RTh\,i}
+  {Ideal source $\ETh$ in series with $\RTh$. Generator convention: $i$ leaves by $A$,
+   $u = V_A - V_B$.}
+\fe[Fig.~26]{Norton model}{i = \INo - \frac{u}{\RNo}}{Ideal current source $\INo$ in parallel with $\RNo$.}
+\fe[Box 21, eq.~(18)]{Equivalence of the models}{\RTh = \RNo \equiv R,\qquad \ETh = R\,\INo}
+  {$\ETh$: open-circuit voltage ($i = 0$). $\INo$: short-circuit current ($u = 0$).}
+\fe[Box 22]{Thévenin's theorem}{\ETh = u_{AB}\big|_{i = 0},\qquad \RTh = R_{AB}\big|_{\text{sources off}}}
+  {Valid for ideal sources and ohmic conductors only (no lamp, motor, diode).}
+\fe[Box 23]{Norton's theorem}{\INo = i_{A\to B}\big|_{u = 0},\qquad \RNo = \RTh}
+  {$\INo$: current in a wire joining $A$ and $B$, sources on.}
+\fe[p.~32]{Switching a source off}{\begin{gathered}\text{voltage source} \to \text{wire}\ (u = 0)\\
+  \text{current source} \to \text{open circuit}\ (i = 0)\end{gathered}}
+  {The resistors stay in place.}
+\fe*{Source transformation}{E \text{ in series with } R \;\Leftrightarrow\; \frac{E}{R} \text{ in parallel with } R}
+  {Thévenin models in series add $E$ and $R$; Norton models in parallel add $I$ and $G$.}
+\fe*{Superposition}{x = x_1 + x_2 + \dots}
+  {Linear circuit: the response to several sources is the sum of the responses to each
+   source alone, the others switched off.}
+\fe[p.~33]{Thévenin model of a divider}{\RTh = \frac{R_1R_2}{R_1 + R_2},\qquad \ETh = \frac{R_2}{R_1 + R_2}\,E}
+  {$E$ in series with $R_1$, $R_2$ across $A$--$B$. Then $\INo = E/R_1$.}
+
+\fbsection{3.C}{Operating point (pp.~34--38)}
+\fe[Figs.~28, 29]{Characteristics}{\text{source: } u = \ETh - \RTh\,i\qquad\text{load: } u = R_c\,i}
+  {Operating point $(\ust, \ist)$: the unique pair on both; graphically their intersection.}
+\fe[Box 24, eq.~(21)]{Operating point}{\ist = \frac{\ETh}{\RTh + R_c},\qquad \ust = \frac{R_c}{\RTh + R_c}\,\ETh}
+  {$R_c \to 0$: $\ust \to 0$, $\ist \to \ETh/\RTh$. $R_c \to \infty$: $\ist \to 0$,
+   $\ust \to \ETh$.}
+\fe[eqs.~(19), (20)]{Power received by the load}{P_c = \ust\,\ist = R_c\,{\ist}^2 = \frac{R_c\,\ETh^2}{(\RTh + R_c)^2}}
+  {Equal to the power delivered by the real source at $A$--$B$.}
+\fe[eqs.~(22), (23)]{Power balance}{\ETh\,\ist = \RTh\,{\ist}^2 + R_c\,{\ist}^2}
+  {Produced by the ideal source $=$ lost in $\RTh$ $+$ received by the load.}
+\fe[eq.~(24)]{Efficiency}{\eta = \frac{P_c}{\ETh\,\ist} = \frac{R_c}{\RTh + R_c}}
+  {0 on short circuit, close to 1 for $R_c \gg \RTh$, $\frac12$ at $R_c = \RTh$.}
+\fe[eqs.~(25), (26)]{Maximum power (matching)}{R_c = \RTh \;\Longrightarrow\; P_c^{\max} = \frac{\ETh^2}{4\RTh}}
+  {$\dd P_c/\dd R_c = \ETh^2(\RTh - R_c)/(\RTh + R_c)^3$. Efficiency only 50\,\% at
+   matching: maximum power $\neq$ maximum efficiency.}
+\begin{trapbox}[title={Misprints and slips in the Electricity notes}]
+\small
+\begin{itemize}
+  \item Eq.~(17): the denominator of Millman's formula is $1/R_1 + 1/R_2 + \dots + 1/R_n$.
+  \item Eqs.~(15)--(16): the left-hand side is $u_2$ (the voltage across $R_2$), not $u_1$;
+    ``$0.9901\,E$'' means $0.9901\,u$.
+  \item Eq.~(24): $P_{\mathrm{Th}}$ there means $\ETh\ist$ (produced by the ideal source),
+    not the delivered power of eq.~(19).
+  \item Tabs.~3--4: the five ratios $u_k/i_k$ average 50.04~$\Omega$ (printed 50.17~$\Omega$);
+    the regression gives $\hat R = 49.99~\Omega \approx 50.0~\Omega$; with these residuals the
+    uncertainty formula gives $u(\hat R) = 0.08~\Omega$ (printed 1.001~$\Omega$).
+\end{itemize}
+\end{trapbox}
+
+% =====================================================================================
+\partheading{Part II}{Thermodynamics: description of a system}
+\fbnote{Notes Thermo-S1 Part~1 (23 pages). Closed systems only: $n$ is constant.}
+
+\fbsection{1.A}{System and state variables (pp.~2--5)}
+\fe[Boxes 1--3]{Kinds of system}{\begin{gathered}\text{closed: no matter exchanged}\\
+  \text{isolated: neither matter nor energy}\end{gathered}}
+  {Open otherwise. Isolated $\Rightarrow$ closed, but not the converse.}
+\fe[Tab.~1]{State variables of a gas}{p\ (\mathrm{Pa}),\quad V\ (\mathrm m^3),\quad T\ (\mathrm K),\quad n\ (\mathrm{mol})}
+  {Dimensions: $\mathrm M\,\mathrm L^{-1}\mathrm T^{-2}$, $\mathrm L^3$, $\Theta$,
+   $\mathrm N$. Defined only at equilibrium (Box 4).}
+\fe[Box 5, eq.~(1)]{Extensive quantity}{X(2\times\text{system}) = 2\,X}
+  {Proportional to the size: $m$, $V$, $n$, $E$.}
+\fe[Box 6]{Intensive quantity}{X(2\times\text{system}) = X}
+  {$p$, $T$, constants such as $R$. Ratio of two extensive quantities: intensive ($V/n$).}
+\fe[Box 7]{Homogeneity}{\text{intensive} = \text{intensive},\qquad \text{extensive} = \text{extensive}}
+  {A check besides dimensions: $T = pV/(nR)$ passes, $T = nR$ fails.}
+
+\fbsub{Composition quantities (Tab.~2)}
+\fe[Tab.~2]{Mole fraction}{x_i = \frac{n_i}{n_{\text{tot}}},\qquad \sum_i x_i = 1}{No unit.}
+\fe[Tab.~2]{Molar density}{C = \frac{n}{V}}{mol\,m$^{-3}$.}
+\fe[Tab.~2]{Molar volume}{V_m = \frac{V}{n}}{m$^3$\,mol$^{-1}$ (inverse of $C$).}
+\fe[Tab.~2]{Mass density}{\rho = \frac{m}{V}}{kg\,m$^{-3}$ (also written $\mu$).}
+\fe[Tab.~2]{Molar mass}{M = \frac{m}{n}}{g\,mol$^{-1}$.}
+\fe[Tab.~2]{Mass concentration}{c_m = \frac{m_{\text{solute}}}{V_{\text{solution}}}}{g\,L$^{-1}$ (also $\gamma$).}
+\fe[Tab.~2]{Molar concentration}{c = \frac{n_{\text{solute}}}{V_{\text{solution}}}}
+  {mol\,L$^{-1}$ (also [X]). $c_m = c\,M$.}
+\fe*{Number of entities}{N = n\,N_A}{$N_A = 6.022\times10^{23}$~mol$^{-1}$.}
+
+\fbsection{1.B}{Postulates of thermodynamics (pp.~5--7)}
+\fe[eqs.~(2), (3)]{Thermodynamic equilibrium}{T_{\text{system}} = T_{\text{ext}},\qquad p_{\text{system}} = p_{\text{ext}}}
+  {Thermal and mechanical equilibrium: uniform and steady state variables.}
+\fe[Box 8]{Postulate}{\begin{gathered}\text{a few state variables}\\ \text{describe an equilibrium state}\end{gathered}}
+  {For a closed system: $p$, $V$, $T$.}
+\fe*{Pressure}{p = \frac{F}{S}}{Pa $=$ N\,m$^{-2}$; force $F$ normal to the area $S$.}
+\fe[Fig.~5]{Piston carrying a mass}{p = p_0 + \frac{m\,g}{S}}
+  {Mechanical equilibrium of a vertical piston of mass $m$ and area $S$ under the outside
+   pressure $p_0$.}
+\fe*{Hydrostatic pressure}{p = p_0 + \rho\,g\,h}{Depth $h$ in a liquid of density $\rho$.}
+
+\fbsection{1.C}{Equations of state and state functions (pp.~7--10)}
+\fe[Box 9, eq.~(4)]{Equation of state}{\psi(p, V, T) = 0 \;\Longleftrightarrow\; V = V(T, p)}
+  {Valid only at equilibrium; characterises the material.}
+\fe[eq.~(5)]{Differential of a state function}{\dd V = \pd{V}{T}{p}\dd T + \pd{V}{p}{T}\dd p}
+  {Each partial derivative is the slope of an isobar $V(T)$ or an isotherm $V(p)$ (Fig.~7).}
+\fe[eq.~(11)]{Cyclic rule}{\pd{p}{T}{V}\pd{T}{V}{p}\pd{V}{p}{T} = -1}{For any relation $f(p, V, T) = 0$.}
+\fe*{Inverse derivative}{\pd{V}{p}{T} = \frac{1}{(\partial p/\partial V)_T}}{Same variable held fixed.}
+
+\fbsection{2.A}{Condensed phases: $\chi_T$ and $\alpha$ (pp.~11--13)}
+\fe[Box 10, eq.~(7)]{Isothermal compressibility}{\chi_T = -\frac{1}{V}\pd{V}{p}{T} = \frac{1}{\rho}\pd{\rho}{p}{T}}
+  {Pa$^{-1}$, positive. Condensed phases: $\chi_T \approx 0$.}
+\fe[Box 11]{Isobaric expansivity}{\alpha = \frac{1}{V}\pd{V}{T}{p}}
+  {K$^{-1}$; nearly constant over a limited range of $T$. Also
+   $\alpha = -\frac1\rho\big(\frac{\partial\rho}{\partial T}\big)_p$.}
+\fe*{Relative variations}{\frac{\dd V}{V} = \alpha\,\dd T - \chi_T\,\dd p}
+  {Small changes: $\frac{\Delta V}{V} \approx \alpha\,\Delta T - \chi_T\,\Delta p$, and
+   $\frac{\Delta\rho}{\rho} = -\frac{\Delta V}{V}$.}
+\fe[Box 13]{Equation of state of a condensed phase}{\begin{gathered}V = V_0\,e^{\alpha(T - T_0) - \chi_T(p - p_0)}\\
+  \approx V_0\left[1 + \alpha(T - T_0) - \chi_T(p - p_0)\right]\end{gathered}}
+  {$\alpha$, $\chi_T$ constant; integrate $\dd V/V$. Limit $\alpha = \chi_T = 0$: $V = V_0$.}
+\fe*{Heating at constant volume}{\pd{p}{T}{V} = \frac{\alpha}{\chi_T}\qquad \Delta p \approx \frac{\alpha}{\chi_T}\,\Delta T}
+  {Liquid sealed in a rigid container ($\dd V = 0$).}
+\fbnote{\textbf{Orders of magnitude}\dagnote: water $\alpha \approx 2\times10^{-4}$~K$^{-1}$,
+  $\chi_T \approx 5\times10^{-10}$~Pa$^{-1}$; ideal gas at 1~bar and 300~K
+  $\chi_T = 10^{-5}$~Pa$^{-1}$, $\alpha = 3.3\times10^{-3}$~K$^{-1}$.}
+
+\fbsection{2.B}{Gases: $\beta$ (pp.~13--14)}
+\fe[Box 12]{Piezothermic coefficient}{\beta = \frac{1}{p}\pd{p}{T}{V}}
+  {K$^{-1}$: relative rise of the pressure with $T$ at constant volume.}
+
+\fbsection{2.C}{Principle and method (pp.~14--15)}
+\fe[eq.~(11)]{Link between the three}{\beta = \frac{\alpha}{p\,\chi_T}\quad\Longleftrightarrow\quad \alpha = p\,\beta\,\chi_T}
+  {From the cyclic rule applied to $f(T, V, p) = 0$.}
+\fe[Fig.~8]{Method}{\text{equation of state} \;\xrightleftharpoons[\text{integrate}]{\text{differentiate}}\; \alpha,\ \chi_T,\ \beta}
+  {Coefficients measured by experiment give the equation of state, and conversely.}
+
+\fbsection{3.A}{Low-density gases: the historical laws (pp.~15--17)}
+\fe[eq.~(12)]{Boyle--Mariotte (1662)}{pV = \text{const}\qquad(n, T \text{ fixed})}
+  {$p_1V_1 = p_2V_2$. Gives $\chi_T = 1/p$ (Box 14).}
+\fe[eq.~(13)]{Charles (1787)}{\frac{V}{T} = \text{const}\qquad(n, p \text{ fixed})}
+  {$V_1/T_1 = V_2/T_2$. Gives $\alpha = 1/T$ (Box 15).}
+\fe[eq.~(14)]{Gay-Lussac (1802)}{\frac{p}{T} = \text{const}\qquad(n, V \text{ fixed})}
+  {$p_1/T_1 = p_2/T_2$. Gives $\beta = 1/T$ (Box 16).}
+\fe[p.~15]{Avogadro (1811)}{\frac{V}{n} = \text{const}\qquad(p, T \text{ fixed})}
+  {Same $p$, $T$ and $V$ $\Rightarrow$ same amount of gas.}
+
+\fbsection{3.B}{The ideal gas (pp.~17--20)}
+\fe[Box 17]{Ideal gas law (Clapeyron)}{pV = nRT}
+  {$p$ in Pa, $V$ in m$^3$, $T$ in K, $R = 8.314$~J\,mol$^{-1}$\,K$^{-1}$. Limit of every gas
+   when $n/V \to 0$ (no interactions).}
+\fe[Box 18]{Derivation}{\frac{pV}{T} = \text{const} = nR}
+  {Combine Boyle--Mariotte, Charles and Gay-Lussac; Avogadro gives the factor $n$.}
+\fe*{Two states, $n$ fixed}{\frac{p_1V_1}{T_1} = \frac{p_2V_2}{T_2}}
+  {Identify first which variables are fixed (table below).}
+\fe*{Other forms}{pV_m = RT,\qquad \rho = \frac{pM}{RT},\qquad C = \frac{p}{RT}}
+  {$M$ in kg\,mol$^{-1}$ for $\rho$ in kg\,m$^{-3}$.}
+\fe*{Per molecule}{pV = N\,k_B\,T}{$k_B = R/N_A = 1.38\times10^{-23}$~J\,K$^{-1}$.}
+\fe[Boxes 14--16]{Coefficients of the ideal gas}{\chi_T = \frac1p,\qquad \alpha = \frac1T,\qquad \beta = \frac1T}
+  {Check: $\alpha/(p\,\chi_T) = 1/T = \beta$.}
+\fe*{Molar volume}{V_m = \frac{RT}{p}}
+  {22.4~L\,mol$^{-1}$ at 0~$^\circ$C and 1~atm; 24.8~L\,mol$^{-1}$ at 25~$^\circ$C and 1~bar.}
+\fe*{Mixture (Dalton)}{p_i = x_i\,p,\qquad p = \sum_i p_i}
+  {Partial pressures. Mean molar mass $M = \sum_i x_i M_i$; air $\approx 29$~g\,mol$^{-1}$.}
+\par\smallskip
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}lccccl@{}}
+\toprule
+System (Tab.~5) & $n$ & $T$ & $p$ & $V$ & Law to use\\
+\midrule
+Weather balloon & fixed & free & free ($= p_{\text{atm}}$) & free & $pV/T = \text{const}$\\
+Tyre & fixed & free & free & fixed & $p/T = \text{const}$\\
+Cartesian diver & fixed & fixed & free ($\propto$ depth) & free & $pV = \text{const}$\\
+Hot-air balloon & free & free & fixed ($= p_{\text{atm}}$) & fixed & $nT = \text{const}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\fbsection{3.C}{Real gases (pp.~20--23)}
+\fe[eq.~(15)]{Compressibility factor}{Z = \frac{pV}{nRT} = \frac{pV_m}{RT}}
+  {$Z = 1$: ideal gas. $Z < 1$: attractions dominate. $Z > 1$: the volume of the molecules
+   dominates. $p \to 0$: $Z \to 1$ (Amagat diagram: $Z$ against $p$).}
+\fe[p.~22]{Boyle temperature}{T = T_B\!:\ Z \approx 1 \text{ over a wide range of } p}
+  {Below $T_B$, $Z$ first dips below 1; well above, $Z > 1$.}
+\fe[eq.~(16)]{Van der Waals}{\left(p + a\,\frac{n^2}{V^2}\right)(V - nb) = nRT}
+  {$a$ (Pa\,m$^6$\,mol$^{-2}$): attractions; $b$ (m$^3$\,mol$^{-1}$): co-volume. $a, b \to 0$:
+   ideal gas.}
+\fe*{Van der Waals, other forms}{\begin{gathered}\left(p + \frac{a}{V_m^2}\right)(V_m - b) = RT\\
+  p = \frac{nRT}{V - nb} - a\,\frac{n^2}{V^2}\end{gathered}}
+  {Per mole ($V_m = V/n$), and solved for $p$.}
+\fe[p.~23]{Internal pressure, co-volume}{\Pi = a\left(\frac{n}{V}\right)^2,\qquad V_{\text{excl}} = nb}
+  {$nb$: about four times the volume of the molecules.}
+\fe*{Co-volume gas ($a = 0$)}{p\,(V - nb) = nRT}{Repulsions only.}
+\fe*{Virial expansion}{Z = 1 + \frac{B(T)}{V_m} + \frac{C(T)}{V_m^2} + \dots}
+  {Van der Waals: $B = b - \frac{a}{RT}$, zero at $T_B = \frac{a}{Rb}$.}
+\fe*{Van der Waals critical point}{T_c = \frac{8a}{27Rb},\qquad p_c = \frac{a}{27b^2},\qquad V_{m,c} = 3b}
+  {Reproduces the $T_c$ column of Tab.~7.}
+\par\smallskip
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Gas (Tab.~7) & He & H$_2$ & N$_2$ & CO$_2$ & H$_2$O\\
+\midrule
+$a$ (Pa\,m$^6$\,mol$^{-2}$) & $3.46\times10^{-3}$ & $2.45\times10^{-2}$ & 0.137 & 0.364 & 0.554\\
+$b$ ($10^{-5}$~m$^3$\,mol$^{-1}$) & 2.38 & 2.67 & 3.87 & 4.27 & 3.05\\
+$T_c$ (K) & 5.2 & 33.2 & 126 & 304 & 647\\
+\bottomrule
+\end{tabular}
+\end{center}
+\fbnote{\textbf{Other equations of state} (Tab.~6, for reference): Clausius
+  $\big(p + \frac{a}{T(V_m + c)^2}\big)(V_m - b) = RT$; Berthelot
+  $\big(p + \frac{a}{TV_m^2}\big)(V_m - b) = RT$; Dieterici $p\,(V_m - b)\,e^{a/(V_mRT)} = RT$;
+  Soave--Redlich--Kwong $p = \frac{RT}{V_m - b} - \frac{a\,\alpha(T)}{V_m(V_m + b)}$;
+  Peng--Robinson $p = \frac{RT}{V_m - b} - \frac{a\,\alpha(T)}{V_m(V_m + b) + b(V_m - b)}$.}
+
+% =====================================================================================
+\partheading{Part III\dagnote}{Work, heat and heat engines (beyond Part 1)}
+\fbnote{Not in the Part~1 notes: the standard results for ideal-gas cycles. $W$ and $Q$ are
+  the energies \textbf{received} by the gas ($> 0$ if received); temperatures in kelvin.}
+
+\fbsection{III.1}{First law and the ideal gas}
+\fe*{Work of the pressure forces}{\begin{gathered}\delta W = -p_{\text{ext}}\,\dd V\\
+  \text{reversible: } W = -\int_{V_1}^{V_2} p\,\dd V\end{gathered}}
+  {$W > 0$ in a compression. Area under the curve in the $(p, V)$ diagram.}
+\fe*{First law}{\Delta U = W + Q}
+  {Closed system at rest. $U$ is a state function; $W$ and $Q$ depend on the path. Over a
+   cycle $\Delta U = 0$.}
+\fe*{Internal energy of an ideal gas}{\Delta U = n\,C_{V,m}\,\Delta T}
+  {Depends on $T$ only. $C_{V,m} = \frac32 R$ (monatomic), $\frac52 R$ (diatomic near 300~K).}
+\fe*{Enthalpy}{H = U + pV,\qquad \Delta H = n\,C_{p,m}\,\Delta T}{At constant pressure: $Q = \Delta H$.}
+\fe*{Mayer's relation, $\gamma$}{C_{p,m} - C_{V,m} = R,\qquad \gamma = \frac{C_{p,m}}{C_{V,m}}}
+  {$\gamma = 5/3$ (monatomic), $7/5$ (diatomic).}
+\par\smallskip
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Reversible process & Constant & $W$ (received) & $Q$ (received) & $\Delta U$\\
+\midrule
+Isochoric & $V$ & $0$ & $n\,C_{V,m}\,\Delta T$ & $n\,C_{V,m}\,\Delta T$\\
+Isobaric & $p$ & $-p\,\Delta V = -nR\,\Delta T$ & $n\,C_{p,m}\,\Delta T$ & $n\,C_{V,m}\,\Delta T$\\[6pt]
+Isothermal & $T$ & $-nRT\ln\dfrac{V_2}{V_1}$ & $nRT\ln\dfrac{V_2}{V_1}$ & $0$\\[9pt]
+Adiabatic & $Q = 0$ & $\dfrac{p_2V_2 - p_1V_1}{\gamma - 1}$ & $0$ & $n\,C_{V,m}\,\Delta T$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\fe*{Laplace's law}{\begin{gathered}pV^\gamma = \text{const},\qquad TV^{\gamma - 1} = \text{const}\\
+  T^\gamma p^{1 - \gamma} = \text{const}\end{gathered}}
+  {Reversible adiabatic process of an ideal gas with constant $\gamma$.}
+
+\fbsection{III.2}{Second law and heat engines}
+\fe*{Second law (entropy)}{\begin{gathered}\Delta S = S_{\text{exchanged}} + S_{\text{created}},
+  \qquad S_{\text{created}} \ge 0\\ S_{\text{exchanged}} = \sum_k \frac{Q_k}{T_k}\end{gathered}}
+  {$T_k$: temperature of the source supplying $Q_k$. $S_{\text{created}} = 0$ only for a
+   reversible process.}
+\fe*{Entropy of an ideal gas}{\Delta S = n\,C_{V,m}\ln\frac{T_2}{T_1} + nR\ln\frac{V_2}{V_1}}{J\,K$^{-1}$.}
+\fe*{Heat engine (two sources)}{W + Q_H + Q_C = 0,\qquad \eta = \frac{-W}{Q_H} = 1 + \frac{Q_C}{Q_H}}
+  {$Q_H > 0$ taken from the hot source, $Q_C < 0$ given to the cold one, $W < 0$ delivered.}
+\fe*{Carnot (maximum) efficiency}{\eta \le \eta_C = 1 - \frac{T_C}{T_H}}
+  {Equality for a reversible engine, where $\frac{Q_H}{T_H} + \frac{Q_C}{T_C} = 0$.}
+\fe*{Refrigerator and heat pump}{\begin{gathered}e_{\text{fridge}} = \frac{Q_C}{W} \le \frac{T_C}{T_H - T_C}\\
+  e_{\text{pump}} = \frac{-Q_H}{W} \le \frac{T_H}{T_H - T_C}\end{gathered}}
+  {Coefficients of performance; they can exceed 1.}
+\fe*{Carnot cycle of an ideal gas}{\begin{gathered}Q_H = nRT_H\ln\frac{V_2}{V_1},\qquad
+  Q_C = -nRT_C\ln\frac{V_3}{V_4}\\ \frac{V_2}{V_1} = \frac{V_3}{V_4}\end{gathered}}
+  {Isotherm $T_H$ ($V_1 \to V_2$), adiabat ($\to V_3 = V_{\max}$), isotherm $T_C$
+   ($\to V_4$), adiabat back to $V_1 = V_{\min}$. Here $Q_H \neq nRT_H\ln(V_{\max}/V_{\min})$.}
+\fe*{Stirling cycle}{\begin{gathered}Q_{\text{in}} = nRT_H\ln\frac{V_{\max}}{V_{\min}}\\
+  W = -nR\,(T_H - T_C)\ln\frac{V_{\max}}{V_{\min}}\end{gathered}}
+  {Two isotherms and two isochores. With an ideal regenerator, $\eta = 1 - T_C/T_H$. Without
+   one, add $n\,C_{V,m}(T_H - T_C)$ to $Q_{\text{in}}$.}
+
+% =====================================================================================
+\summaryheading{Summary}{Units of all quantities}
+\begin{minipage}[t]{0.485\textwidth}\vspace{0pt}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}[t]{@{}l>{$}l<{$}l@{}}
+\toprule
+\multicolumn{3}{@{}l}{\bfseries\color{theme}Electricity}\\
+\midrule
+Charge & q & coulomb, C $=$ A\,s\\
+Current & i & ampere, A (SI base unit)\\
+Potential, voltage & V,\ u,\ e & volt, V $=$ J\,C$^{-1}$\\
+Resistance & R & ohm, $\Omega = $ V\,A$^{-1}$\\
+Conductance & G & siemens, S $= \Omega^{-1}$\\
+Resistivity & \rho & $\Omega$\,m\\
+Conductivity & \sigma & S\,m$^{-1}$\\
+Power & p,\ P & watt, W $=$ V\,A\\
+Energy & E & joule, J $=$ W\,s\\
+Carrier density & n & m$^{-3}$\\
+Drift velocity & v & m\,s$^{-1}$\\
+Current density & j & A\,m$^{-2}$\\
+Efficiency & \eta & no unit\\
+\bottomrule
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}\vspace{0pt}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}[t]{@{}l>{$}l<{$}l@{}}
+\toprule
+\multicolumn{3}{@{}l}{\bfseries\color{theme}Thermodynamics}\\
+\midrule
+Pressure & p & pascal, Pa $=$ N\,m$^{-2}$\\
+Volume & V & m$^3$\\
+Temperature & T & kelvin, K\\
+Amount of matter & n & mole, mol\\
+Molar mass & M & kg\,mol$^{-1}$ (or g\,mol$^{-1}$)\\
+Molar volume & V_m & m$^3$\,mol$^{-1}$\\
+Density & \rho & kg\,m$^{-3}$\\
+Coefficients & \alpha,\ \beta;\ \chi_T & K$^{-1}$; Pa$^{-1}$\\
+Gas constant & R & J\,mol$^{-1}$\,K$^{-1}$\\
+Van der Waals $a$ & a & Pa\,m$^6$\,mol$^{-2}$\\
+Van der Waals $b$ & b & m$^3$\,mol$^{-1}$\\
+Energies & W,\ Q,\ U,\ H & joule, J\\
+Entropy & S & J\,K$^{-1}$\\
+Heat capacities & C_{V,m},\ C_{p,m} & J\,mol$^{-1}$\,K$^{-1}$\\
+\bottomrule
+\end{tabular}
+\end{minipage}
+
+\begin{trapbox}[title={Same letter, different quantity}]
+\small
+$p$: power (W) in electricity, pressure (Pa) in thermodynamics.\quad
+$\rho$: resistivity ($\Omega$\,m) or density (kg\,m$^{-3}$).\quad
+$n$: carrier density (m$^{-3}$) or amount of substance (mol).\quad
+$\alpha$: expansivity here, never a resistance coefficient.\quad
+$E$: energy (J) or electromotive force $E_{\mathrm{Th}}$ (V).
+\end{trapbox}
+
+\end{document}

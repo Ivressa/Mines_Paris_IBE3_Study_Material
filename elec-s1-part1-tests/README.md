@@ -39,7 +39,8 @@ Boxes 16–24 (notes pages 22–38). It covers:
   E_Th·i⋆.
 
 Its numerical examples use different values from the progress tests, so it gives no
-answers away. The 1A–2C sheet was supplied as a PDF and has no LaTeX source here.
+answers away. Every formula of Part 1 is also in the
+[physics formula booklet](../formula-booklets/pdf/Formula-Booklet_Physics.pdf). The 1A–2C sheet was supplied as a PDF and has no LaTeX source here.
 
 ## The tests
 

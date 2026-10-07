@@ -10,6 +10,9 @@ Each has a unit conversion, a definition with its equation and SI units, tick-bo
 and a short calculation with the data in a frame. No calculator is needed: the data use
 R = 8.3 J·K⁻¹·mol⁻¹ and RT ≈ 2.5 × 10³ J·mol⁻¹ at 300 K.
 
+Every formula of Part 1 is collected in the
+[physics formula booklet](../formula-booklets/pdf/Formula-Booklet_Physics.pdf).
+
 ## What to print
 
 | File | Contents | Pages |
