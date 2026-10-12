@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Builds the study guide, the worksheets and the worksheet answers (pdflatex, two passes).
+# Builds the study guide, the worksheets, the worksheet answers and the chapter 1-3 exam
+# practice with its answers (pdflatex, two passes).
 set -euo pipefail
 cd "$(dirname "$0")"
 ROOT=$PWD; BUILD=$ROOT/build; OUT=$ROOT/pdf
@@ -15,7 +16,11 @@ compile() { # $1 = jobname, $2 = tex input
 compile study-guide "\\input{study-guide}"
 compile worksheets "\\input{worksheets}"
 compile worksheet-answers "\\def\\KEY{}\\input{worksheets}"
+compile exam-practice "\\input{exam-practice}"
+compile exam-practice-answers "\\def\\KEY{}\\input{exam-practice}"
 cp "$BUILD/study-guide.pdf"       "$OUT/Chem-S1-1_Study-Guide.pdf"
 cp "$BUILD/worksheets.pdf"        "$OUT/Chem-S1-1_Worksheets.pdf"
 cp "$BUILD/worksheet-answers.pdf" "$OUT/Chem-S1-1_Worksheet-Answers.pdf"
+cp "$BUILD/exam-practice.pdf"     "$OUT/Chem-S1-1_Exam-Practice-Ch1-3.pdf"
+cp "$BUILD/exam-practice-answers.pdf" "$OUT/Chem-S1-1_Exam-Practice-Ch1-3_Answers.pdf"
 echo "PDFs written to $OUT"

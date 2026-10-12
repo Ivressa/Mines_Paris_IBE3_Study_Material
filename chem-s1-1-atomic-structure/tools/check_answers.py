@@ -149,4 +149,41 @@ for el, v in IE.items():
     ratios = [v[i + 1] / v[i] for i in range(3)]
     same(f"jump position {el} (valence electrons)", ratios.index(max(ratios)) + 1, {"Mg": 2, "Al": 3}[el])
 
+print("== Exam practice ch. 1-3")
+s4 = 2 * 1.0073 + 2 * 1.0087 + 2 / 1823; dm = s4 - 4.0026; E4 = dm * amu * c ** 2
+check("A2 sum", s4, 4.0331, 1e-4); check("A2 dm amu", dm, 0.0305); check("A2 dm kg", dm * amu, 5.06e-29)
+check("A2 E J", E4, 4.56e-12); check("A2 MeV", E4 / 1.6e-13, 28.5); check("A2 J/mol", E4 * NA, 2.74e12)
+same("A3 multiples of e", [round(q / 1.6) for q in (6.41, 9.62, 3.20, 12.82, 4.81)], [4, 6, 2, 8, 3])
+m3 = 886 * 4 / 3 * math.pi * 1e-18; q3 = m3 * 9.81 * 5.0e-3 / 380
+check("A3 mass", m3, 3.71e-15); check("A3 q", q3, 4.79e-19); same("A3 electrons", round(q3 / e), 3)
+check("A4 d", k * 58 * e ** 2 / (7.7 * 1.6e-13), 1.08e-14)
+check("A4 density", 63 * amu / (4 / 3 * math.pi * 4.8e-15 ** 3), 2.3e17, 0.02); check("A4 ratio", 128e-12 / 4.8e-15, 2.7e4, 0.02)
+qa = 2 * e / (4.0015 * amu); check("A5 alpha q/m", qa, 4.82e7); check("A5 e/alpha", (e / me) / qa, 3.6e3, 0.02)
+E1 = 2.48 * e; check("B1 lambda nm", h * c / E1 * 1e9, 501); check("B1 nu", E1 / h, 5.99e14)
+check("B1 cm-1", E1 / (h * c) / 100, 2.00e4); check("B1 kJ/mol", E1 * NA / 1000, 239)
+x = c / (1282e-9 * RH); check("B2 x", x, 0.0711); check("B2 n2", (1 / 9 - x) ** -0.5, 5.00, 1e-3)
+for En, n in ((12.75, 4), (13.22, 6)):
+    check(f"B3 {En} eV -> n", (1 - En / 13.6) ** -0.5, n, 5e-3)
+check("B3 v", math.sqrt(2 * 6.4 * e / me), 1.50e6)
+lamH = lambda n1, n2, Z=1: c / (Z ** 2 * RH * (1 / n1 ** 2 - 1 / n2 ** 2))
+check("B4 5->1 nm", lamH(1, 5) * 1e9, 95.0); check("B4 5->4 um", lamH(4, 5) * 1e6, 4.05)
+same("B4 lines", sum(1 for a in range(1, 6) for b in range(a + 1, 6)), 10)
+lams = [656.3e-9, 486.1e-9, 434.0e-9, 410.2e-9]; X = [1 / n ** 2 for n in (3, 4, 5, 6)]; Y = [1 / l for l in lams]
+mx, my = sum(X) / 4, sum(Y) / 4
+slope = sum((a - mx) * (b - my) for a, b in zip(X, Y)) / sum((a - mx) ** 2 for a in X)
+check("B5 slope", -slope, 1.097e7); check("B5 intercept", my - slope * mx, 2.743e6, 1e-3)
+check("B5 R_H Hz", -slope * c, 3.29e15); check("B5 IE eV", h * c * -slope / e, 13.6)
+check("B5 limit nm", 4 / -slope * 1e9, 365)
+check("B6 IE", 13.6 * 9, 122.4); check("B6 2->1 nm", lamH(1, 2, 3) * 1e9, 13.5)
+check("B6 9->6 = H 3->2", lamH(6, 9, 3), lamH(2, 3), 1e-12)
+Ep = h * c / 589e-9; check("B7 photons/s", 18 / Ep, 5.34e19); check("B7 mol/h", 18 / Ep * 3600 / NA, 0.319)
+check("C4 P(2a)/P(a)", 4 * math.exp(-2), 0.54); check("C4 P(r<a)", 1 - 5 * math.exp(-2), 0.323)
+check("C5 inner max", 3 - math.sqrt(5), 0.76, 1e-2); check("C5 outer max pm", (3 + math.sqrt(5)) * a0, 277)
+check("C6 E3", -13.6 / 9, -1.51)
+check("C7 dE J", h * c * (1 / 589.0e-9 - 1 / 589.6e-9), 3.43e-22); check("C7 cm-1", (1 / 589.0e-9 - 1 / 589.6e-9) / 100, 17.3)
+check("C9 Li2+ 2s", 4 * a0 / 3, 70.5); check("C9 Be3+ 2p energy", -13.6 * 16 / 4, -54.4)
+check("D1 E1", -k * e ** 2 / (2 * a0 * 1e-12) / e, -13.6)
+check("D2 Z^2", 4 * c / (RH * 22.8e-9), 16.0); check("D2 IE", 13.6 * 16, 218)
+Ed = h * c / 58.4e-9; check("D3 eV", Ed / e, 21.3); check("D3 v", math.sqrt(2 * (Ed / e - 13.6) * e / me), 1.64e6)
+
 print("\nFAILURES:", fails)

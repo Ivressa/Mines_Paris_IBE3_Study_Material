@@ -1,0 +1,419 @@
+% Exam practice, handout chapters 1-3: moderate and hard questions only.
+% Questions: compile as is.  Worked answers: compile with \def\KEY{} (see build.sh).
+\documentclass[11pt]{article}
+\usepackage{chemguide}
+\ifkey\renewcommand{\doctype}{Exam practice ch.~1--3 \textperiodcentered{} answers}
+\else\renewcommand{\doctype}{Exam practice ch.~1--3}\fi
+
+% difficulty badges and question heading: \xq{M|H}{title}
+\newcommand{\moderate}{\tcbox[on line, colback=BurntOrange!15, colframe=BurntOrange, boxrule=0.4pt,
+  arc=0.8mm, left=1pt, right=1pt, top=0pt, bottom=0pt, fontupper=\sffamily\scriptsize]{Moderate}}
+\newcommand{\hard}{\tcbox[on line, colback=Maroon!12, colframe=Maroon, boxrule=0.4pt, arc=0.8mm,
+  left=1pt, right=1pt, top=0pt, bottom=0pt, fontupper=\sffamily\scriptsize]{Hard \,$\bigstar$}}
+\newcounter{xq}
+\newcommand{\xpart}{A}
+\newcommand{\xq}[2]{\par\needspace{6\baselineskip}\medskip\stepcounter{xq}\noindent
+  {\sffamily\bfseries\color{heading}\xpart\thexq.}\enspace
+  \if#1M\moderate\else\hard\fi\enspace{\sffamily\bfseries #2}\par\nopagebreak\smallskip}
+\newcommand{\xparthead}[2]{\setcounter{xq}{0}\renewcommand{\xpart}{#1}%
+  \partheading{Part #1 \,$\cdot$\, #2}}
+
+\begin{document}
+% ------------------------------------------------------------------ cover
+\thispagestyle{empty}
+\vspace*{8mm}
+\begin{center}
+  {\sffamily\small ENGINEERING \& DATA SCIENCES \,$\cdot$\, CHEMISTRY S1-1}\\[8pt]
+  {\sffamily\bfseries\Huge\color{heading} Exam practice}\\[4pt]
+  {\sffamily\bfseries\LARGE\color{heading} The atom and its quantum model}\\[8pt]
+  {\sffamily\Large Handout chapters 1--3 \ifkey\,$\cdot$\, worked answers\fi}\\[4pt]
+  {\normalsize 25 questions \,$\cdot$\, \moderate\ and \hard\ only}
+\end{center}
+\vspace{5mm}
+{\sffamily\bfseries\color{heading} How to use it}
+\begin{itemize}[leftmargin=7mm, itemsep=2pt]
+\ifkey
+  \item Every question is followed by a worked answer in a \textcolor{keyblue}{blue box}. Check the
+        method (formula in letters first, then numbers with units) as well as the result.
+\else
+  \item The questions cover every type of exercise that chapters 1--3 allow: calculations,
+        identifications, justifications, data analysis and multi-step problems. Easy recall
+        questions are left out; the worksheets cover them.
+  \item Work on paper with a calculator, then check with
+        \emph{Chem-S1-1\_Exam-Practice-Ch1-3\_Answers.pdf}.
+\fi
+  \item Moderate: one or two steps with a formula from the handout. Hard: several steps,
+        reasoning in reverse, or ideas from two chapters at once.
+\end{itemize}
+
+\data{$c = \SI{3.00e8}{\metre\per\second}$\quad $h = \SI{6.62e-34}{\joule\second}$\quad
+$e = \SI{1.6e-19}{\coulomb}$\quad $1\ \mathrm{eV} = \SI{1.6e-19}{\joule}$\quad
+$N_A = \SI{6.022e23}{\per\mole}$\quad $R_H = \SI{3.29e15}{\hertz}$\quad
+$a_0 = 52.9$~pm\quad $k = 1/(4\pi\varepsilon_0) = \SI{8.99e9}{\newton\metre\squared\per\coulomb\squared}$\\
+$m_e = \SI{9.1094e-31}{\kilo\gram}$\quad $m_p = 1.0073$~amu\quad $m_n = 1.0087$~amu\quad
+$1~\mathrm{amu} = \SI{1.6605e-27}{\kilo\gram}$\quad $g = \SI{9.81}{\metre\per\second\squared}$\quad
+$E_n = -13.6\,Z^2/n^2$~eV.}
+
+\vspace{2mm}
+{\sffamily\bfseries\color{heading} Map of the question types}\par\vspace{1mm}
+{\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}p{0.11\linewidth}p{0.62\linewidth}p{0.2\linewidth}@{}}
+\toprule
+Chapter & Type of question & Questions\\
+\midrule
+1 & Counting protons, neutrons, electrons; isotopes and isoelectronic species & A1\\
+1 & Mass defect and energy of a nucleus & A2\\
+1 & Millikan: finding $e$ from data; balancing a charged drop & A3\\
+1 & Rutherford: closest approach, density and size of the nucleus & A4\\
+1 & Thomson: comparing charge-to-mass ratios & A5\\
+2 & Converting between $\lambda$, $\nu$, wavenumber, eV and kJ\,mol$^{-1}$ & B1, B7\\
+2 & Identifying a transition from a wavelength & B2\\
+2 & Which photons are absorbed; ionisation and the ejected electron & B3, D3\\
+2 & Emission cascade: number of lines, extreme wavelengths, visible lines & B4\\
+2 & Data analysis: Rydberg's constant from measured lines & B5\\
+2 & Hydrogen-like ions; coinciding lines & B6, D2\\
+2 & Explaining spectra (lines vs bands, emission vs absorption, colour) & B8\\
+3 & Allowed sets of quantum numbers; naming orbitals & C1\\
+3 & Counting orbitals and electrons with conditions & C2\\
+3 & Nodes; recognising an orbital from its nodes and planes & C3, C8\\
+3 & Radial probability density: maximum, probability inside a sphere & C4, C5\\
+3 & Degeneracy in H vs many-electron atoms; Madelung order & C6\\
+3 & Spin (sodium doublet) and Zeeman splitting & C7\\
+3 & Sizes $r = n^2 a_0/Z$ & C9, D2\\
+1--3 & Synthesis: Coulomb energy and Bohr levels; unknown ion; photoionisation & D1--D3\\
+\bottomrule
+\end{tabular}}
+
+% ================================================================== PART A
+\clearpage
+\xparthead{A}{The atom and its particles (chapter 1)}
+
+\xq{M}{Particle bookkeeping}
+(a) Complete the table.\\[2pt]
+{\small\begin{tabular}{lccccc}
+\toprule
+Species & \nuc{37}{17}{Cl}$^-$ & \nuc{56}{26}{Fe}$^{3+}$ & \nuc{18}{8}{O}$^{2-}$ & \nuc{16}{8}{O} &
+  \nuc{23}{11}{Na}$^{+}$\\
+\midrule
+protons / neutrons / electrons & & & & & \\
+\bottomrule
+\end{tabular}}\\[3pt]
+(b) Which species are isotopes of each other? Which are isoelectronic, and with which noble gas?
+(c) A species has 26 protons, 30 neutrons and 23 electrons. Write its symbol in full.
+\begin{solution}
+(a) \nuc{37}{17}{Cl}$^-$: 17 / 20 / 18.\quad \nuc{56}{26}{Fe}$^{3+}$: 26 / 30 / 23.\quad
+\nuc{18}{8}{O}$^{2-}$: 8 / 10 / 10.\quad \nuc{16}{8}{O}: 8 / 8 / 8.\quad \nuc{23}{11}{Na}$^+$: 11 / 12 / 10.
+(Neutrons $N = A - Z$; electrons $= Z - $ charge.)\\
+(b) Isotopes: \iso{18}{O} and \iso{16}{O} (same $Z = 8$, different $A$); the charge does not matter.
+Isoelectronic: \nuc{18}{8}{O}$^{2-}$ and \nuc{23}{11}{Na}$^+$, 10 electrons each, like neon.\\
+(c) $Z = 26$ is iron, $A = 26 + 30 = 56$, charge $26 - 23 = +3$: \nuc{56}{26}{Fe}$^{3+}$.
+\end{solution}
+
+\xq{H}{Where does the mass go? (helium-4)}
+A \iso{4}{He} atom has a mass of 4.0026~amu. (a) Compute the total mass of its separate
+particles (2 protons, 2 neutrons, 2 electrons; $m_e = 1/1823$~amu). (b) Deduce the mass defect
+$\Delta m$ in amu and in kg. (c) The binding energy is $E = \Delta m\,c^2$: compute it per atom, in J
+and MeV ($1~\mathrm{MeV} = 1.6\times10^{-13}$~J), and per mole. Compare with a chemical bond
+(a few hundred kJ\,mol$^{-1}$).
+\begin{solution}
+(a) $2\times1.0073 + 2\times1.0087 + 2/1823 = 4.0331$~amu.\\
+(b) $\Delta m = 4.0331 - 4.0026 = 0.0305$~amu $= 0.0305\times1.6605\times10^{-27} = 5.06\times10^{-29}$~kg.\\
+(c) $E = 5.06\times10^{-29}\times(3.00\times10^8)^2 = 4.56\times10^{-12}$~J $= 28.5$~MeV per atom;
+per mole $4.56\times10^{-12}\times6.022\times10^{23} = 2.74\times10^{12}$~J\,mol$^{-1}$, about ten million
+times a chemical bond energy: nuclear energies dwarf chemical ones.
+\end{solution}
+
+\xq{H}{Millikan's experiment}
+(a) Charges measured on oil drops: $6.41$, $9.62$, $3.20$, $12.82$ and $4.81\times10^{-19}$~C. Show that they
+are whole multiples of one charge and find it.\\
+(b) A drop of oil (density 886~kg\,m$^{-3}$, radius $1.00$~\textmu m) is held still between two
+horizontal plates $d = 5.0$~mm apart when $U = 380$~V is applied: the electric force $qU/d$ balances
+the weight $mg$. Find its charge and the number of extra electrons it carries.
+\begin{solution}
+(a) Dividing by the smallest value: $6.41/3.20 = 2.00$, $9.62/3.20 = 3.01$, $12.82/3.20 = 4.01$,
+$4.81/3.20 = 1.50$. The ratio 1.50 shows that 3.20 is itself $2e$: dividing everything by
+$1.60\times10^{-19}$ gives 4, 6, 2, 8 and 3. All are whole multiples of $e = 1.60\times10^{-19}$~C.\\
+(b) $m = \rho\,\tfrac43\pi r^3 = 886\times\tfrac43\pi(1.00\times10^{-6})^3 = 3.71\times10^{-15}$~kg;
+$mg = 3.64\times10^{-14}$~N.\quad $q = \dfrac{mg\,d}{U} = \dfrac{3.64\times10^{-14}\times5.0\times10^{-3}}{380}
+= 4.79\times10^{-19}$~C $\approx 3e$: three extra electrons.
+\end{solution}
+
+\xq{H}{Rutherford on copper}
+An $\alpha$ particle (charge $+2e$) with kinetic energy 7.7~MeV heads straight for a copper nucleus
+($Z = 29$). (a) At its closest approach all its kinetic energy has become potential energy
+$k\,q_1q_2/d$. Find $d$. (b) Why is $d$ only an upper limit for the radius of the nucleus?
+(c) The copper nucleus ($A = 63$) has a radius of about 4.8~fm. Compute its density and compare
+the radius of the atom (128~pm) with that of its nucleus. (d) Use this ratio to explain why most
+$\alpha$ particles cross a metal foil undeflected.
+\begin{solution}
+(a) $E_k = 7.7\times1.6\times10^{-13} = 1.23\times10^{-12}$~J;\quad
+$d = \dfrac{k\,(2e)(29e)}{E_k} = \dfrac{8.99\times10^9\times58\times(1.6\times10^{-19})^2}{1.23\times10^{-12}}
+= 1.08\times10^{-14}$~m $= 10.8$~fm.\\
+(b) The particle turns back before touching the nucleus; a faster particle would get closer. The
+nucleus is at most this large.\\
+(c) $m \approx 63\times1.6605\times10^{-27} = 1.05\times10^{-25}$~kg, $V = \tfrac43\pi(4.8\times10^{-15})^3
+= 4.6\times10^{-43}$~m$^3$, $\rho \approx 2.3\times10^{17}$~kg\,m$^{-3}$.
+$128\times10^{-12}/4.8\times10^{-15} \approx 2.7\times10^4$.\\
+(d) The nucleus occupies a fraction $(1/2.7\times10^4)^2 \sim 10^{-9}$ of the cross-section of the
+atom: almost every $\alpha$ particle meets only the light, spread-out electrons and goes straight.
+\end{solution}
+
+\xq{M}{Thomson's specific charge}
+In a deflection tube, the deviation is proportional to $q/m$. Compute $q/m$ for an electron, a proton
+and an $\alpha$ particle ($m_\alpha = 4.0015$~amu) and rank their deviations. By what factor is the
+electron deviated more than the $\alpha$ particle?
+\begin{solution}
+Electron: $1.6\times10^{-19}/9.1094\times10^{-31} = 1.76\times10^{11}$~C\,kg$^{-1}$. Proton:
+$1.6\times10^{-19}/(1.0073\times1.6605\times10^{-27}) = 9.57\times10^{7}$~C\,kg$^{-1}$. $\alpha$:
+$2\times1.6\times10^{-19}/(4.0015\times1.6605\times10^{-27}) = 4.82\times10^{7}$~C\,kg$^{-1}$.
+Deviation: electron $\gg$ proton $>$ $\alpha$; the electron is deviated $1.76\times10^{11}/4.82\times10^{7}
+\approx 3.6\times10^3$ times more (and in the opposite direction).
+\end{solution}
+
+% ================================================================== PART B
+\xparthead{B}{Light and the hydrogen spectrum (chapter 2)}
+
+\xq{M}{One photon, five units}
+A photon carries 2.48~eV. Give its wavelength, frequency, wavenumber (cm$^{-1}$), the energy of one
+mole of such photons (kJ\,mol$^{-1}$), and the region of the spectrum.
+\begin{solution}
+$E = 2.48\times1.6\times10^{-19} = 3.97\times10^{-19}$~J.\quad $\lambda = hc/E = 5.01\times10^{-7}$~m $= 501$~nm
+(visible, blue-green).\quad $\nu = E/h = 5.99\times10^{14}$~Hz.\quad $1/\lambda = 2.00\times10^{6}$~m$^{-1}$
+$= 2.00\times10^4$~cm$^{-1}$.\quad Per mole: $3.97\times10^{-19}\times6.022\times10^{23} = 2.39\times10^5$~J\,mol$^{-1}$
+$= 239$~kJ\,mol$^{-1}$, the order of a chemical bond.
+\end{solution}
+
+\xq{M}{Which transition?}
+Hydrogen emits a line at $\lambda = 1282$~nm. Using Rydberg's formula, show that it cannot belong to
+the Lyman or the Balmer series, and identify the transition.
+\begin{solution}
+$\dfrac{1}{n_1^2} - \dfrac{1}{n_2^2} = \dfrac{\nu}{R_H} = \dfrac{c}{\lambda R_H} = \dfrac{3.00\times10^8}{1282\times10^{-9}\times3.29\times10^{15}} = 0.0711$.\\
+Lyman ($n_1 = 1$): $1/n_2^2 = 0.929$, $n_2 = 1.04$, not an integer. Balmer ($n_1 = 2$): $1/n_2^2 = 0.179$,
+$n_2 = 2.36$, no. Paschen ($n_1 = 3$): $1/n_2^2 = 0.111 - 0.0711 = 0.0400$, $n_2 = 5.00$. The line is
+$5 \to 3$ (infrared, as expected for $\lambda > 821$~nm).
+\end{solution}
+
+\xq{M}{Photons hitting ground-state hydrogen}
+Hydrogen atoms in their ground state receive photons of (a) 12.75~eV, (b) 12.50~eV, (c) 13.22~eV,
+(d) 20.0~eV. For each, say whether it is absorbed and what happens. For (d), compute the speed of
+the electron that leaves.
+\begin{solution}
+Absorption needs $h\nu = E_n - E_1 = 13.6(1 - 1/n^2)$ exactly, or $h\nu \ge 13.6$~eV (ionisation).
+(a) $1 - 1/n^2 = 0.9375$, $n = 4$: absorbed, $1 \to 4$. (b) $n = 3.52$: not an integer, not absorbed.
+(c) $n = 5.98 \approx 6$: absorbed, $1 \to 6$ ($13.6\times35/36 = 13.22$~eV).
+(d) $20.0 > 13.6$: ionised, $E_k = 20.0 - 13.6 = 6.4$~eV $= 1.02\times10^{-18}$~J;
+$v = \sqrt{2E_k/m_e} = \sqrt{2\times1.02\times10^{-18}/9.1094\times10^{-31}} = 1.50\times10^{6}$~m\,s$^{-1}$.
+\end{solution}
+
+\xq{H}{Emission cascade from $n = 5$}
+A gas of hydrogen atoms is excited to $n = 5$. (a) How many different lines can it emit? (b) How
+many of them are visible, and which? (c) Compute the shortest and the longest wavelengths emitted.
+(d) Draw the level diagram with the transitions, grouped into series.
+\begin{solution}
+(a) Any pair of levels among 1--5: $5\times4/2 = 10$ lines.\\
+(b) Visible lines are Balmer lines ending on $n = 2$: $3\to2$ (657~nm), $4\to2$ (486~nm), $5\to2$ (434~nm):
+three lines.\\
+(c) Shortest: largest energy gap, $5 \to 1$: $\lambda = c/[R_H(1 - 1/25)] = 95.0$~nm (UV). Longest:
+smallest gap, $5 \to 4$: $\lambda = c/[R_H(1/16 - 1/25)] = 4.05$~\textmu m (IR).\\
+(d) Lyman (to $n = 1$): 4 lines; Balmer (to 2): 3; Paschen (to 3): 2; Brackett (to 4): 1. Total 10.
+\end{solution}
+
+\xq{H}{Measuring Rydberg's constant}
+The four visible lines of hydrogen are measured at 656.3, 486.1, 434.0 and 410.2~nm.
+(a) Show that Balmer's formula predicts a straight line when $1/\lambda$ is plotted against $1/n^2$,
+and give its slope and intercept. (b) Using a linear fit (or the first and last points), find $R_H$
+in m$^{-1}$ and in Hz. (c) Deduce the ionisation energy of hydrogen in eV and kJ\,mol$^{-1}$, and the
+wavelength of the Balmer limit.
+\begin{solution}
+(a) $\dfrac{1}{\lambda} = \dfrac{R_H}{c}\left(\dfrac14 - \dfrac1{n^2}\right) = \dfrac{R_H}{4c} - \dfrac{R_H}{c}\,\dfrac1{n^2}$:
+a line of slope $-R_H/c$ and intercept $R_H/(4c)$, with $n = 3, 4, 5, 6$.\\
+(b) Points $(1/n^2, 1/\lambda)$: $(0.1111, 1.5237)$, $(0.0625, 2.0572)$, $(0.0400, 2.3041)$,
+$(0.0278, 2.4378)$, with $1/\lambda$ in $10^6$~m$^{-1}$. Least squares: slope $= -1.0972\times10^7$~m$^{-1}$,
+intercept $2.743\times10^{6}$~m$^{-1}$ ($\times4 = 1.097\times10^7$, consistent). So
+$R_H/c = 1.097\times10^7$~m$^{-1}$ and $R_H = 3.29\times10^{15}$~Hz.\\
+(c) $E_I = hR_H = h c\times1.097\times10^7 = 2.18\times10^{-18}$~J $= 13.6$~eV, i.e.\
+$2.18\times10^{-18}\times6.022\times10^{23} = 1.31\times10^6$~J\,mol$^{-1} = 1312$~kJ\,mol$^{-1}$.
+Balmer limit: $\lambda = 4/(1.097\times10^7) = 365$~nm.
+\end{solution}
+
+\xq{H}{The Li$^{2+}$ ion}
+(a) Compute the ionisation energy of \ce{Li^2+} in its ground state and the wavelength of its
+$2 \to 1$ line. In which region is it? (b) Show that the \ce{Li^2+} transition $9 \to 6$ has
+exactly the wavelength of hydrogen's $3 \to 2$ line. (c) Generalise: which \ce{Li^2+} transitions
+reproduce all the Balmer lines?
+\begin{solution}
+(a) $E_I = 13.6\times3^2 = 122.4$~eV. $\nu = 9R_H(1 - 1/4) = 2.22\times10^{16}$~Hz, $\lambda = 13.5$~nm:
+far UV (almost X-rays).\\
+(b) \ce{Li^2+}: $9\left(\frac1{36} - \frac1{81}\right) = \frac{9}{36} - \frac{9}{81} = \frac14 - \frac19$,
+which is hydrogen's $\frac1{2^2} - \frac1{3^2}$: same frequency, same wavelength (657~nm).\\
+(c) $9\left(\frac1{n_1^2} - \frac1{n_2^2}\right) = \frac{1}{(n_1/3)^2} - \frac{1}{(n_2/3)^2}$: it equals
+$\frac14 - \frac1{m^2}$ for $n_1 = 6$ and $n_2 = 3m$. The transitions $9 \to 6$, $12 \to 6$,
+$15 \to 6$\dots\ reproduce the Balmer lines $m = 3, 4, 5\dots$
+\end{solution}
+
+\xq{M}{Counting photons}
+A 60~W sodium lamp turns 30\,\% of its power into light at 589~nm. How many photons does it emit per
+second, and how many moles of photons per hour?
+\begin{solution}
+Light power $P = 0.30\times60 = 18$~W. One photon: $E = hc/\lambda = 3.37\times10^{-19}$~J.
+$N/t = 18/3.37\times10^{-19} = 5.34\times10^{19}$~photons\,s$^{-1}$; per hour
+$5.34\times10^{19}\times3600/6.022\times10^{23} = 0.319$~mol of photons.
+\end{solution}
+
+\xq{M}{Explaining spectra}
+(a) Why do the absorption and emission spectra of hydrogen show lines at exactly the same
+wavelengths? (b) Why does a solution of \ce{KMnO4} show a broad absorption band around 530~nm
+rather than thin lines, and why does it look purple? (c) What experimental fact led Bohr to say
+that the energy of the atom is quantised?
+\begin{solution}
+(a) Both involve the same pairs of levels: a photon of energy $E_{n_2} - E_{n_1}$ is emitted when the
+electron drops and absorbed when it rises.\\
+(b) In a molecule in solution, many closely spaced levels (vibrations, interactions with the
+solvent) merge into a continuous band. The solution absorbs green light (about 530~nm), so we see
+the complementary colour, purple/magenta.\\
+(c) Hydrogen absorbs and emits only a few discrete wavelengths: the atom can only exchange definite
+amounts of energy, so its energy takes only definite values.
+\end{solution}
+
+% ================================================================== PART C
+\xparthead{C}{Quantum numbers and atomic orbitals (chapter 3)}
+
+\xq{M}{Allowed or not?}
+For each set $(n, \ell, \ml, \ms)$, say whether it is allowed. If so, name the orbital; if not, say
+which rule is broken: (a) $(2, 2, 0, +\tfrac12)$; (b) $(3, 2, -2, -\tfrac12)$; (c) $(4, 0, 1, +\tfrac12)$;
+(d) $(5, 3, -3, +\tfrac12)$; (e) $(1, 0, 0, 0)$; (f) $(3, 1, -1, +\tfrac12)$.
+\begin{solution}
+(a) No: $\ell \le n - 1 = 1$. (b) Yes: 3d. (c) No: $|\ml| \le \ell = 0$. (d) Yes: 5f. (e) No: $\ms = \pm\frac12$
+only. (f) Yes: 3p.
+\end{solution}
+
+\xq{M}{Counting with conditions}
+(a) For $n = 4$: list the subshells and give the numbers of orbitals and electrons. (b) How many
+electrons of an atom can have $n = 3$ and $\ml = +1$? (c) How many can have $n = 4$ and
+$\ms = +\frac12$? (d) How many orbitals with $\ell = 2$ exist for $n \le 5$?
+\begin{solution}
+(a) 4s, 4p, 4d, 4f: $1 + 3 + 5 + 7 = 16 = n^2$ orbitals, $2n^2 = 32$ electrons.\\
+(b) $\ml = +1$ exists for 3p and 3d: 2 orbitals, 4 electrons.\\
+(c) 16 orbitals, one electron with $\ms = +\frac12$ each: 16.\\
+(d) $\ell = 2$ needs $n \ge 3$: 3d, 4d, 5d, $3\times5 = 15$ orbitals.
+\end{solution}
+
+\xq{M}{Nodes}
+(a) Give the numbers of radial, angular and total nodes of 2s, 3p, 4d, 5f and 4s. (b) Which orbital
+has 2 radial nodes and 1 angular node? Which has no radial node and 3 angular nodes? (c) Can an
+orbital of the shell $n = 4$ have 2 radial and 2 angular nodes?
+\begin{solution}
+(a) Radial $n - \ell - 1$, angular $\ell$, total $n - 1$:
+2s 1/0/1;\ 3p 1/1/2;\ 4d 1/2/3;\ 5f 1/3/4;\ 4s 3/0/3.\\
+(b) $\ell = 1$, $n = 2 + 1 + 1 = 4$: 4p. $\ell = 3$, $n = 4$: 4f.\\
+(c) No: the total would be 4, but a shell $n = 4$ has $n - 1 = 3$ nodes. It is a 5d orbital.
+\end{solution}
+
+\xq{H}{Where is the 1s electron?}
+For hydrogen, $P(r) = \dfrac{4}{a_0^3}\,r^2\,e^{-2r/a_0}$. (a) Show that $P$ is maximum at $r = a_0$.
+(b) Compute $P(2a_0)/P(a_0)$. (c) Show that the probability of finding the electron inside the sphere
+of radius $a_0$ is $1 - 5e^{-2} \approx 32\,\%$
+(use $\int x^2 e^{-x}\,\mathrm dx = -(x^2 + 2x + 2)\,e^{-x}$). (d) Where is the maximum for \ce{He+}?
+\begin{solution}
+(a) $P'(r) = \frac{4}{a_0^3}e^{-2r/a_0}\left(2r - \frac{2r^2}{a_0}\right) = 0$ at $r = a_0$ (positive before,
+negative after): a maximum.\\
+(b) $\dfrac{P(2a_0)}{P(a_0)} = \dfrac{4a_0^2e^{-4}}{a_0^2e^{-2}} = 4e^{-2} = 0.54$.\\
+(c) With $x = 2r/a_0$: $\int_0^{a_0}P\,\mathrm dr = \frac12\int_0^{2}x^2e^{-x}\,\mathrm dx
+= \frac12\left[2 - 10e^{-2}\right] = 1 - 5e^{-2} = 0.323$.\\
+(d) Replace $a_0$ by $a_0/Z$: maximum at $a_0/2 = 26.5$~pm.
+\end{solution}
+
+\xq{H}{The 2s orbital and its node}
+For the hydrogen 2s orbital, $\Psi_{2s} \propto \left(2 - \dfrac{r}{a_0}\right)e^{-r/2a_0}$.
+(a) Find the radius of the radial node, in pm. (b) The radial density is
+$P(r) \propto r^2\left(2 - \frac{r}{a_0}\right)^2 e^{-r/a_0}$: show that its maxima are at
+$r = (3 \pm \sqrt5)\,a_0$, and say which one is the most probable distance. (c) Where is the node for
+\ce{Li^2+}?
+\begin{solution}
+(a) $\Psi_{2s} = 0$ for $r = 2a_0 = 106$~pm (a sphere; $n - \ell - 1 = 1$ node).\\
+(b) Write $P = f^2 e^{-r/a_0}$ with $f = r(2 - r/a_0)$:
+$P' = e^{-r/a_0} f\left[2f' - f/a_0\right]$. $f = 0$ gives $r = 0$ and the node $r = 2a_0$ (minima).
+$2f' = f/a_0$: $4 - 4r/a_0 = 2r/a_0 - r^2/a_0^2$, i.e.\ $r^2 - 6a_0 r + 4a_0^2 = 0$,
+$r = (3 \pm \sqrt5)\,a_0 = 0.76\,a_0$ and $5.24\,a_0$. The outer maximum is the higher one: the most
+probable distance is $5.24\,a_0 \approx 277$~pm, consistent with $r = n^2a_0 = 4a_0$ being the size scale.\\
+(c) Replace $a_0$ by $a_0/3$: $2a_0/3 = 35$~pm.
+\end{solution}
+
+\xq{M}{Degeneracy and Madelung's order}
+(a) In hydrogen, how many orbitals have the energy $E_3$? Give their energy in eV. (b) Why does this
+degeneracy disappear in a many-electron atom such as Na? Order 3s, 3p, 3d for Na. (c) Use Madelung's
+rule to order 6s, 4f, 5d, 6p, 5f, 7s, and say which pairs have the same $n + \ell$.
+\begin{solution}
+(a) $n^2 = 9$ orbitals (3s, three 3p, five 3d), all at $E_3 = -13.6/9 = -1.51$~eV.\\
+(b) The other electrons screen the nucleus; s electrons penetrate closer to it than p and d
+electrons, so they feel a larger charge: $E_{3s} < E_{3p} < E_{3d}$.\\
+(c) $n + \ell$: 6s 6, 4f 7, 5d 7, 6p 7, 7s 7, 5f 8. Equal sums are ordered by $n$:
+6s $<$ 4f $<$ 5d $<$ 6p $<$ 7s $<$ 5f. Same $n + \ell = 7$: 4f, 5d, 6p, 7s.
+\end{solution}
+
+\xq{M}{Spin and magnetic field}
+(a) Sodium's D line is a doublet at 589.0 and 589.6~nm. Compute the energy gap between the two upper
+levels in meV and the wavenumber gap in cm$^{-1}$. What property of the electron explains it?
+(b) Into how many sublevels does a 3d level split in a magnetic field (Zeeman effect)? A 4f level?
+Which quantum number is revealed?
+\begin{solution}
+(a) $\Delta E = hc\left(\frac1{589.0\times10^{-9}} - \frac1{589.6\times10^{-9}}\right) = 3.43\times10^{-22}$~J
+$= 2.1$~meV; $\Delta(1/\lambda) = 17.3$~cm$^{-1}$. The spin ($\ms = \pm\frac12$) splits the 3p level into two.\\
+(b) $2\ell + 1$ values of $\ml$: 5 for 3d, 7 for 4f. It reveals the magnetic quantum number $\ml$.
+\end{solution}
+
+\xq{M}{Recognise the orbital}
+Name the orbital: (a) one nodal plane, the $(xOy)$ plane, and no radial node; (b) two angular nodes
+and one radial node; (c) spherical, with two radial nodes; (d) $\Psinlm{3}{1}{0}$. For (a) and (d), give
+$\ml$ and the occupied/unoccupied status in ground-state hydrogen.
+\begin{solution}
+(a) $\ell = 1$, $n = 2$, plane $(xOy)$: 2p$_z$ ($\ml = 0$). (b) $\ell = 2$, $n = 4$: 4d. (c) $\ell = 0$, $n = 3$:
+3s. (d) $n = 3$, $\ell = 1$, $\ml = 0$: 3p$_z$. Both are unoccupied in ground-state hydrogen (only 1s is).
+\end{solution}
+
+\xq{H}{Sizes of hydrogen-like orbitals}
+Using $r = n^2a_0/Z$: (a) compare the sizes of H 1s, \ce{Li^2+} 2s and \ce{Li^2+} 3d. (b) Which
+hydrogen-like ion has a 2p orbital the same size as the 1s of hydrogen? Give the energy of that 2p
+level.
+\begin{solution}
+(a) H 1s: $a_0 = 52.9$~pm. \ce{Li^2+} 2s: $4a_0/3 = 70.5$~pm. \ce{Li^2+} 3d: $9a_0/3 = 3a_0 = 159$~pm.\\
+(b) $n^2/Z = 1$ with $n = 2$: $Z = 4$, \ce{Be^3+}. $E_2 = -13.6\times16/4 = -54.4$~eV.
+\end{solution}
+
+% ================================================================== PART D
+\xparthead{D}{Synthesis: chapters 1 to 3 together}
+
+\xq{H}{Coulomb meets Bohr}
+In the Bohr picture the electron of hydrogen orbits at $r_n = n^2a_0$. Its total energy is
+$E = -\dfrac{k e^2}{2r}$ (half its Coulomb potential energy). (a) Compute $E$ for $r = a_0$ in J and eV and
+compare with $E_1$. (b) Show that this expression gives $E_n = E_1/n^2$. (c) For \ce{He+} in $n = 2$,
+give $r$ and $E$; compare with hydrogen's ground state.
+\begin{solution}
+(a) $E = -\dfrac{8.99\times10^9\times(1.6\times10^{-19})^2}{2\times52.9\times10^{-12}} = -2.18\times10^{-18}$~J
+$= -13.6$~eV $= E_1$.\\
+(b) $r_n = n^2a_0$ gives $E_n = -\dfrac{ke^2}{2a_0n^2} = \dfrac{E_1}{n^2}$.\\
+(c) Hydrogen-like ion: $r = n^2a_0/Z = 4a_0/2 = 106$~pm; $E = -13.6\times4/4 = -13.6$~eV: the same energy
+as H in its ground state, but twice as far out.
+\end{solution}
+
+\xq{H}{An unknown ion}
+A hydrogen-like ion emits a series ending on $n_1 = 2$ whose limit is at 22.8~nm. Identify the ion,
+then give its ground-state ionisation energy and the size of its 1s orbital.
+\begin{solution}
+Limit: $\nu = Z^2R_H/n_1^2$, so $Z^2 = \dfrac{c\,n_1^2}{\lambda R_H} = \dfrac{3.00\times10^8\times4}{22.8\times10^{-9}\times3.29\times10^{15}}
+= 16.0$: $Z = 4$, the ion is \ce{Be^3+}. $E_I = 13.6\times16 = 218$~eV; $r_{1s} = a_0/4 = 13.2$~pm.
+\end{solution}
+
+\xq{H}{Photoionisation by a helium lamp}
+A helium discharge lamp emits UV light at 58.4~nm. (a) Compute the photon energy in eV. (b) It hits
+ground-state hydrogen atoms: what happens, and what is the kinetic energy and speed of the electron
+that leaves? (c) Could this lamp ionise \ce{He+}? Justify.
+\begin{solution}
+(a) $E = hc/\lambda = 3.40\times10^{-18}$~J $= 21.3$~eV.\\
+(b) $21.3 > 13.6$~eV: the atom is ionised. $E_k = 21.3 - 13.6 = 7.7$~eV $= 1.22\times10^{-18}$~J;
+$v = \sqrt{2E_k/m_e} = 1.64\times10^{6}$~m\,s$^{-1}$.\\
+(c) No: \ce{He+} needs $13.6\times4 = 54.4$~eV $> 21.3$~eV.
+\end{solution}
+
+\end{document}

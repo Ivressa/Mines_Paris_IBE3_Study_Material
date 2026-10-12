@@ -20,6 +20,8 @@ All the formulas of the five chapters are also collected in the
 | [`pdf/Chem-S1-1_Study-Guide.pdf`](pdf/Chem-S1-1_Study-Guide.pdf) | Concepts, recap and worksheet for each of the 5 units | 35 |
 | [`pdf/Chem-S1-1_Worksheets.pdf`](pdf/Chem-S1-1_Worksheets.pdf) | The 5 worksheets on their own (75 questions) | 11 |
 | [`pdf/Chem-S1-1_Worksheet-Answers.pdf`](pdf/Chem-S1-1_Worksheet-Answers.pdf) | Every question with its worked answer | 20 |
+| [`pdf/Chem-S1-1_Exam-Practice-Ch1-3.pdf`](pdf/Chem-S1-1_Exam-Practice-Ch1-3.pdf) | Exam practice on chapters 1–3: 25 moderate and hard questions covering every question type, with a map of the types | 4 |
+| [`pdf/Chem-S1-1_Exam-Practice-Ch1-3_Answers.pdf`](pdf/Chem-S1-1_Exam-Practice-Ch1-3_Answers.pdf) | The same questions with worked answers | 8 |
 
 ## The units
 
@@ -45,7 +47,7 @@ Hydrogen's ionisation energy (blank in Table 5-2) is 1312 kJ/mol.
 
 ## Checking and rebuilding
 
-- `python3 tools/check_answers.py` recomputes every number in the worked answers (132 checks). It
+- `python3 tools/check_answers.py` recomputes every number in the worked answers (183 checks, including the exam practice). It
   uses the handout's constants and builds the electron configurations from Madelung's rule.
 - `./build.sh` rebuilds the three PDFs. It needs TeX Live. The sources are in `src/`: `unitN.tex` holds
   the concepts and recap, and `wsN.tex` the worksheet with its answers.
